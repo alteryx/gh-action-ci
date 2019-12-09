@@ -4,7 +4,7 @@ A GitHub Action for scheduling CircleCI dynamically.
 
 ## Install
 
-In your repository, add the following lines to `.github/workflows/release.yml`:
+In your repository, add the following lines to `.github/workflows/schedule.yml`:
 
 ```yaml
 on:
@@ -21,8 +21,8 @@ jobs:
       env:
         REPOSITORY: featurelabs/featuretools
         EVENT: Latest Commit to Master
-        CRON: '*/5 * * * *'
-        TOKEN : <TOKEN>
+        WITHIN: 'days=1'
+        TOKEN : ${{ secrets.TOKEN }}
 ```
 
 Then, add the following secrets to the repository settings:

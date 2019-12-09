@@ -6,6 +6,6 @@ LABEL "com.github.actions.description"="A GitHub Action for scheduling CircleCI 
 LABEL "repository"="circleci-scheduler"
 LABEL "maintainer"="support@featurelabs.com"
 
-ADD upload.sh /upload.sh
+ADD main.sh /main.sh
 RUN ["chmod", "+x", "main.sh"]
 ENTRYPOINT ["/main.sh"]

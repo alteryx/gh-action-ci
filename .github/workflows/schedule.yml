@@ -2,15 +2,15 @@ on:
     schedule:
       - cron:  '*/5 * * * *'
   
-  name: CircleCI Scheduler
-  jobs:
-    Featuretools:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Variables
-        env:
-          REPOSITORY: featurelabs/featuretools
-          EVENT: Latest Commit to Master
-          WITHIN: 'days=1'
-        run: |
-          echo $REPOSITORY $EVENT $WITHIN
+name: CircleCI Scheduler
+jobs:
+  Featuretools:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Variables
+      env:
+        REPOSITORY: featurelabs/featuretools
+        EVENT: Latest Commit to Master
+        WITHIN: 'days=1'
+      run: |
+        echo $REPOSITORY $EVENT $WITHIN

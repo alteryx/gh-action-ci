@@ -1,4 +1,4 @@
-on: [push]
+on: push
 
 name: CircleCI Scheduler
 jobs:
@@ -9,7 +9,6 @@ jobs:
           import pandas as pd
           print(pd)
         shell: python
-        - name: Conditional Step
-            if: success()
-            run: echo "Passed"
-          
+      - name: Conditional Step
+          if: success()
+          run: echo "Passed"

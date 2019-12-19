@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          echo $(python -V)
+          pip install pandas
+      - run: |
           import pandas as pd
           print(pd)
         shell: python

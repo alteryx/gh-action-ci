@@ -10,10 +10,13 @@ jobs:
           python-version: "3.7"
       - run: |
           echo $(python -V)
+          echo $(which python)
+          echo $(which pip)
+          echo
           pip install pandas
       - run: |
-          import pandas as pd
-          print(pd)
+          import sys
+          print(sys.executable)
         shell: python
       - name: Conditional Step
         if: success()

@@ -12,9 +12,10 @@ jobs:
           echo $(python -V)
           echo $(which python)
           echo $(which pip)
-      - run: >
-          python -c "import sys;
-          print(sys.executable);"
+      - run: |
+          python -c "
+          import sys
+          print(sys.executable)"
       - name: Conditional Step
         if: success()
         run: echo success

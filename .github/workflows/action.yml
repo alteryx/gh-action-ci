@@ -10,5 +10,5 @@ jobs:
           print(pd)
         shell: python
       - name: Conditional Step
-          if: success()
-          run: echo "Passed"
+        if: success()
+        run: echo "Passed"

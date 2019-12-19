@@ -16,7 +16,7 @@ jobs:
       - run: |
           import sys
           print(sys.executable)
-        shell: python {0}
+        shell: eval $(which python) {0}
       - name: Conditional Step
         if: success()
         run: echo success

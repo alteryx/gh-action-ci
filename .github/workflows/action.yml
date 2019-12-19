@@ -1,0 +1,15 @@
+on: [push]
+
+name: CircleCI Scheduler
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          import pandas as pd
+          print(pd)
+        shell: python
+        - name: Conditional Step
+            if: success()
+            run: echo "Passed"
+          

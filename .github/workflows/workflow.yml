@@ -12,10 +12,9 @@ jobs:
           echo $(python -V)
           echo $(which python)
           echo $(which pip)
-          pip install pandas
       - run: >
           python -c "
-          import sys
+          import sys;
           print(sys.executable)"
       - name: Conditional Step
         if: success()

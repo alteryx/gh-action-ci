@@ -14,9 +14,9 @@ jobs:
           echo $(which pip)
           pip install pandas
       - run: |
+          python
           import sys
           print(sys.executable)
-        shell: /opt/hostedtoolcache/Python/3.7.5/x64/bin/python {0}
       - name: Conditional Step
         if: success()
         run: echo success

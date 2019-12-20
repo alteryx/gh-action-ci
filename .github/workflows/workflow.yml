@@ -5,17 +5,4 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v1
-        with:
-          python-version: "3.7"
-      - run: |
-          echo $(python -V)
-          echo $(which python)
-          echo $(which pip)
-      - run: |
-          python -c "
-          import sys
-          print(sys.executable)"
-      - name: Conditional Step
-        if: success()
-        run: echo success
+      - uses: ./actions/circleci-api

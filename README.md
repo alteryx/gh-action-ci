@@ -4,7 +4,7 @@ A GitHub Action for scheduling CircleCI dynamically.
 
 ## Install
 
-In your repository, add the following lines to `.github/workflows/schedule.yml`:
+In your repository, add the following lines to `.github/workflows/circleci-scheduler.yml`:
 
 ```yaml
 on:
@@ -16,16 +16,19 @@ jobs:
   Featuretools:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: FeatureLabs/circleci-scheduler@master
-      env:
-        REPOSITORY: featurelabs/featuretools
-        EVENT: Latest Commit to Master
-        WITHIN: 'days=1'
-        TOKEN : ${{ secrets.TOKEN }}
+    - name: Check latest build status in local project.
+      uses: featurelabs/circleci-api@master
+
+    - name: Check latest build time in Featuretools.
+      uses: featurelabs/circleci-api@master
+      # if: latest build status in local project was successful
+
+    - name: Trigger build in local project.
+      uses: featurelabs/circleci-api@master
+      # if: latest build time in Featuretools was within the past period
 ```
 
 Then, add the following secrets to the repository settings:
-  - `TOKEN`
+  - `CIRCLE_TOKEN`
 
 ## Usage

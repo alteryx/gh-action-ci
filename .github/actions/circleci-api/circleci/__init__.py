@@ -8,16 +8,18 @@ class api:
         self.token = token
     
     def recent_builds(self, limit=20, offset=5, filter='completed'):
-        parameters = dict(
-            vcs_type=self.vcs_type,
-            username=self.username,
-            project=self.project,
-            limit=limit,
-            offset=offset,
-            filter=filter,
-        )
+        parameters = {
+            'vcs_type': self.vcs_type,
+            'username': self.username,
+            'project': self.project,
+            'token': self.token,
+            'limit': limit,
+            'offset': offset,
+            'filter': filter,
+        }
 
-        url = "https://circleci.com/api/v1.1/project/{vcs_type}/{username}/{project}?limit={limit}&offset={offset}&filter={filter}"
-        url = url.format(**parameters)
-        response = requests.get(url)
+        url = "https://circleci.com/api/v1.1"
+        url += "/project/{vcs_type}/{username}/{project}/tree/master?"
+        url += "circle-token={token}&limit={limit}&offset={offset}&filter={filter}"
+        response = requests.get(url.format(**parameters))
         return response.json()

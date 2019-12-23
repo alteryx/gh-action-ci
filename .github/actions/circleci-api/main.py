@@ -1,5 +1,4 @@
-import circleci
-import github
+import circleci, github
 from argparse import ArgumentParser
 
 if __name__ == '__main__':
@@ -8,4 +7,3 @@ if __name__ == '__main__':
     parser.add_argument('--project')
     parser.add_argument('--token')
     args = parser.parse_args()
-    print(args)

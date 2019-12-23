@@ -19,7 +19,10 @@ class api:
         }
 
         url = "https://circleci.com/api/v1.1"
-        url += "/project/{vcs_type}/{username}/{project}/tree/master?"
-        url += "circle-token={token}&limit={limit}&offset={offset}&filter={filter}"
-        response = requests.get(url.format(**parameters))
-        return response.json()
+        url += "/project/{vcs_type}/{username}/{project}/tree/master"
+        url += "?circle-token={token}&limit={limit}&offset={offset}&filter={filter}"
+        url = url.format(**parameters)
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            return response.json()

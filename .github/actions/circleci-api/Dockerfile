@@ -1,11 +1,7 @@
 FROM python:3.7
 
-# Package Installation
 ADD circleci circleci
-ADD requirements.txt requirements.txt
-ADD setup.py setup.py
-RUN pip install .
+ADD github github
+ADD main.py main.py
 
-# Entry Point
-ADD main.sh main.sh
-ENTRYPOINT [ "main.sh" ]
+ENTRYPOINT [ "main.py" ]

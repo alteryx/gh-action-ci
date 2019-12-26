@@ -11,5 +11,5 @@ jobs:
         with:
           x0: 'true'
       - name: two
-        if: contians(steps.one.outputs.y0, 'true')
+        if: contains(steps.one.outputs.y0, 'true')
         run: echo "y0 ${{ steps.one.outputs.y0 }}"

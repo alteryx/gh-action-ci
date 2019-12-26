@@ -2,6 +2,8 @@ FROM python:3.7
 
 ADD circleci circleci
 ADD github github
-ADD main.py main.py
+ADD entrypoint.py entrypoint.py
+ADD entrypoint.sh entrypoint.sh
 
-ENTRYPOINT [ "main.py" ]
+RUN chmod +x entrypoint.sh
+ENTRYPOINT entrypoint.sh

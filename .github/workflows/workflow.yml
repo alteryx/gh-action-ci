@@ -5,10 +5,11 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - name: Repoisotry
-        env:
-          REPO: ${{ github.repository }}
-        run: echo $REPO
-      - name: Conditional Step
-        if: contains(github.repository, 'circleci-scheduler')
-        run: echo 1
+      - name: one
+        id: one
+        uses: ./.github/actions/circleci-api
+        with:
+          x0: 'true'
+      - name: two
+        if: contians(steps.one.outputs.y0, 'true')
+        run: echo "y0 ${{ steps.one.outputs.y0 }}"

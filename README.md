@@ -13,19 +13,19 @@ on:
 
 name: CircleCI Scheduler
 jobs:
-  Featuretools:
+  featuretools:
     runs-on: ubuntu-latest
     steps:
-    - name: Check latest build status in local project.
+    - name: Latest Status of Integration Tests
       uses: featurelabs/circleci-api@master
 
-    - name: Check latest build time in Featuretools.
+    - name: Check if a pull request was merged to Featuretools.
       uses: featurelabs/circleci-api@master
-      # if: latest build status in local project was successful
+      # if: latest status of integration tests is successful
 
-    - name: Trigger build in local project.
+    - name: Run integration tests.
       uses: featurelabs/circleci-api@master
-      # if: latest build time in Featuretools was within the past period
+      # if: latest commit in Featuretools was within period
 ```
 
 Then, add the following secrets to the repository settings:

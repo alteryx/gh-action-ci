@@ -1,3 +1,7 @@
+# ==========
+# Python
+# ==========
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -10,7 +14,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+dist/   
 downloads/
 eggs/
 .eggs/
@@ -104,7 +108,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# ==========
 # IDE
+# ==========
+
 .vscode
 .DS_Store
 dev

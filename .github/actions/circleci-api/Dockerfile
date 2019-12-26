@@ -9,4 +9,4 @@ RUN pwd
 COPY entrypoint.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 RUN pwd
-ENTRYPOINT entrypoint.sh
+ENTRYPOINT /app/entrypoint.sh

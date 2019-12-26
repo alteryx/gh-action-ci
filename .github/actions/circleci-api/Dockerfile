@@ -4,7 +4,6 @@ FROM python:3.7
 # ADD entrypoint.py /entrypoint.py
 # ADD entrypoint.sh /entrypoint.sh
 
-# WORKDIR /
 COPY entrypoint.py entrypoint.py
-RUN chmod +x entrypoint.py
+# RUN chmod +x entrypoint.py
 ENTRYPOINT ["/entrypoint.py"]

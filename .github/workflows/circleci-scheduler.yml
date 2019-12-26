@@ -5,6 +5,7 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: one
         id: one
         uses: ./.github/actions/circleci-api

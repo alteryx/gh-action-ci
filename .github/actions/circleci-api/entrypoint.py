@@ -1,5 +1,4 @@
 # import circleci, github
-# import subprocess
 from argparse import ArgumentParser
 
 if __name__ == '__main__':
@@ -7,7 +6,5 @@ if __name__ == '__main__':
     command.add_argument('--x0')
 
     args = command.parse_args()
-    print("x0: %s" % args.x0)
-    print("::set-output name=y0::%s" % args.x0)
-    # subprocess.run(["echo", "x0: %s" % args.x0])
-    # subprocess.run(["echo", "::set-output name=y0::%s" % args.x0])
+    print('x0: %s' % args.x0)
+    print('::set-output name=y0::%s' % args.x0)

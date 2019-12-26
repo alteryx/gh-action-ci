@@ -1,4 +1,4 @@
 #!/bin/sh -l
 
-echo "x0: $x0"
-echo ::set-output name=y0::$x0
+echo "x0: $1"
+echo ::set-output name=y0::$$1

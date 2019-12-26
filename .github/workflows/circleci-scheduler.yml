@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: one
+      - name: One
         id: one
         uses: ./.github/actions/circleci-api
         with:
           x0: 'true'
-      - name: two
+      - name: Two
         if: contains(steps.one.outputs.y0, 'true')
         run: echo "y0 ${{ steps.one.outputs.y0 }}"

@@ -20,10 +20,10 @@ jobs:
           import subprocess
           from datetime import datetime, timedelta
 
-          recent = eval('timedelta(%s)' % 'minutes=60')
+          recent = eval('timedelta(%s)' % 'year=1')
           args = r"git log -1 --format=%cd --date=unix".split()
-          timestamp = subprocess.check_output(args)
-          latest_commit_time = datetime.utcfromtimestamp(int(timestamp))
+          timestamp = int(subprocess.check_output(args))
+          latest_commit_time = datetime.utcfromtimestamp(timestamp)
 
           elapsed = datetime.utcnow() - latest_commit_time
           assert elapsed <= recent, 'latest commit was not recent'

@@ -5,17 +5,19 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/circleci-api
+      - name: Checkout local GitHub Action.
+        uses: actions/checkout@v2
+      - name: Check for successful workflow status on CircleCI.
+        uses: ./.github/actions/circleci-api
         with:
           task: latest_workflow_status
           repository: facebook/react # placeholder
       - if: success()
-        name: Checkout Featuretools
+        name: Checkout master branch in Featuretools.
         uses: actions/checkout@v2
         with:
           repository: featurelabs/featuretools
-      - name: Check for Recent Commit
+      - name: Check for recent commit to Featuretools.
         run: |
           import subprocess
           from datetime import datetime, timedelta
@@ -29,5 +31,5 @@ jobs:
           assert elapsed <= recent, 'latest commit was not recent'
         shell: python
       - if: success()
-        name: Trigger CircleCI
-        run: echo success
+        name: Trigger project build on CircleCI.
+        run: echo

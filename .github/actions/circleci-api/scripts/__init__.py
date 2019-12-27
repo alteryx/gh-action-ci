@@ -21,8 +21,11 @@ def latest_workflow_status(repository, token=''):
     workflows, workflow_id = df.groupby(key, sort=False), df[key][1]
     latest_workflow = workflows.get_group(workflow_id)
 
+    line = '-' * 25
+    print('\n', line, ' Latest Status on CircleCI ', line, '\n')
     keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
-    string = '\n' + latest_workflow[keys].to_string(index=False) + '\n'
-    print(string)
+    string = latest_workflow[keys].to_string(index=False)
+    print(string, '\n')
 
     return latest_workflow.status.eq('success').all()
+ 

@@ -23,7 +23,7 @@ jobs:
           import subprocess
           from datetime import datetime, timedelta
 
-          recent = eval('timedelta(%s)' % 'days=100')
+          recent = timedelta(days=100)
           args = r"git log -1 --format=%cd --date=unix".split()
           timestamp = int(subprocess.check_output(args))
           latest_commit_time = datetime.utcfromtimestamp(timestamp)

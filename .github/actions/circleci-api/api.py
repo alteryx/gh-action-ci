@@ -1,11 +1,11 @@
 import pandas as pd
 import requests
 
-def latest_workflow(repository, token=''):
+def latest_workflow(repository, circle_token=''):
     url = "https://circleci.com/api/v1.1"
     url += "/project/github/{repository}/tree/master"
     url += "?circle-token={token}&limit=5&offset=5&filter=completed"
-    url = url.format(repository=repository, token=token)
+    url = url.format(repository=repository, token=circle_token)
     response = requests.get(url)
 
     assert response.status_code == 200, response

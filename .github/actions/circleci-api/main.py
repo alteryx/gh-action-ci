@@ -1,5 +1,5 @@
+import api
 import argparse
-import scripts
 
 if __name__ == '__main__':
     task = argparse.ArgumentParser()
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     task = task.parse_args()
     
     if task.name == 'latest_workflow_status':
-        workflow = scripts.latest_workflow(task.repository, task.circle_token)
+        workflow = api.latest_workflow(task.repository, task.circle_token)
         success = workflow.status.eq('success').all()
         assert success, 'latest workflow was not successful'
 

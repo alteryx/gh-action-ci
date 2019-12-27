@@ -1,11 +1,22 @@
-name: 'CircleCI API'
-description: ''
+name: "CircleCI API"
+description: ""
 inputs:
-  run:
-    description: ''
+  task:
+    description: ""
     required: true
+  repository:
+    description: ""
+    required: true
+  circle-token:
+    description: ""
+    required: false
+    default: ""
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
-    - ${{ inputs.run }}
+    - ${{ inputs.task }}
+    - --repository
+    - ${{ inputs.repository }}
+    - --circle-token
+    - ${{ inputs.circle-token }}

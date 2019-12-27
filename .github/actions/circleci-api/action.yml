@@ -1,13 +1,9 @@
 name: 'CircleCI API'
 description: ''
 inputs:
-  x0:
+  run:
     description: ''
     required: true
-    default: ''
-outputs:
-  y0:
-    description: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'

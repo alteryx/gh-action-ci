@@ -7,6 +7,7 @@ def latest_workflow(repository, token=''):
     url += "?circle-token={token}&limit=5&offset=5&filter=completed"
     url = url.format(repository=repository, token=token)
     response = requests.get(url)
+    print('circle-token:', token)
 
     assert response.status_code == 200, response
     json = response.json()

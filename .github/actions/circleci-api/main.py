@@ -12,6 +12,7 @@ if __name__ == '__main__':
         workflow = scripts.latest_workflow(task.repository, task.circle_token)
         success = workflow.status.eq('success').all()
         assert success, 'latest workflow was not successful'
+        print('circle-token:', task.circle_token)
 
     else:
         raise ValueError('task not supported')

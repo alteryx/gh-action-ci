@@ -12,6 +12,7 @@ jobs:
         with:
           task: latest_workflow_status
           repository: facebook/react # placeholder
+          circle-token: ${{ secrets.CIRCLE_TOKEN }}
       - if: success()
         name: Checkout master branch in Featuretools.
         uses: actions/checkout@v2

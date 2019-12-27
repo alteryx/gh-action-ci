@@ -11,7 +11,23 @@ jobs:
           task: latest_workflow_status
           repository: facebook/react # placeholder
       - if: success()
+        name: Checkout Featuretools
         uses: actions/checkout@v2
         with:
           repository: featurelabs/featuretools
-      - run: git log -1 --format=%cd
+      - name: Check for Recent Commit
+        run: |
+          from datetime import datetime, timedelta
+          from dateutil.parser import parse
+          from subprocess import PIPE, run
+
+          recent = eval('timedelta(%s)' % 'minutes=60')
+          args = r"git log -1 --format=%cd --date=unix".split()
+          timestamp = int(run(args, stdout=PIPE).stdout.decode())
+          latest_commit_time = datetime.utcfromtimestamp(timestamp)
+          elapsed = datetime.utcnow() - latest_commit_time
+          assert elapsed <= recent, 'latest commit was not recent'
+        shell: python
+      - if: success()
+        name: Trigger CircleCI
+        run: echo success

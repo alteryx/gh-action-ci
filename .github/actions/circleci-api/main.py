@@ -7,7 +7,7 @@ if __name__ == '__main__':
     task.add_argument('repository')
     task.add_argument('--circle-token')
     task = task.parse_args()
-    
+
     if task.name == 'latest_workflow_status':
         workflow = api.latest_workflow(task.repository, task.circle_token)
 
@@ -18,6 +18,9 @@ if __name__ == '__main__':
 
         success = workflow.status.eq('success').all()
         assert success, 'latest workflow was not successful'
+
+    elif task.name == 'is_recent_commit':
+        commit = api.latest_commit(task.repository)
 
     else:
         raise ValueError('task not supported')

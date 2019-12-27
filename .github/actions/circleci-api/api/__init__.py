@@ -6,6 +6,10 @@ def latest_commit(repository):
     url = "https://api.github.com/repos/{repository}/commits" % repository
     # if since: url += "?since=%s" % since
     response = requests.get(url)
+    assert response.status_code == 200, response
+    json = response.json()
+    return json
+
 
 
 def latest_workflow(repository, circle_token=''):

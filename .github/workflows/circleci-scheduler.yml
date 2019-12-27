@@ -17,13 +17,14 @@ jobs:
           repository: featurelabs/featuretools
       - name: Check for Recent Commit
         run: |
+          import subprocess
           from datetime import datetime, timedelta
-          from subprocess import PIPE, run
+          from dateutil.parser import parse
 
           recent = eval('timedelta(%s)' % 'minutes=60')
           args = r"git log -1 --format=%cd --date=unix".split()
-          timestamp = int(run(args, stdout=PIPE).stdout.decode())
-          latest_commit_time = datetime.utcfromtimestamp(timestamp)
+          timestamp = subprocess.check_output(args)
+          latest_commit_time = datetime.utcfromtimestamp(int(timestamp))
 
           elapsed = datetime.utcnow() - latest_commit_time
           assert elapsed <= recent, 'latest commit was not recent'

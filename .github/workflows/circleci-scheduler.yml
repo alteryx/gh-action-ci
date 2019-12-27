@@ -5,12 +5,8 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: One
-        id: one
-        uses: ./.github/actions/circleci-api
-        with:
-          x0: 'true'
-      - name: Two
-        if: contains(steps.one.outputs.y0, 'true')
-        run: echo "y0 ${{ steps.one.outputs.y0 }}"
+    - name: One
+      run: |
+        import os
+        print(${{ github.repository }})
+      shell: python

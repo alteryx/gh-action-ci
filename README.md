@@ -16,16 +16,16 @@ jobs:
   featuretools:
     runs-on: ubuntu-latest
     steps:
-    - name: Latest Status of Integration Tests
+    - name: Checks the latest status on CircleCI.
       uses: featurelabs/circleci-api@master
 
-    - name: Check if a pull request was merged to Featuretools.
+    - name: Checks for recent commit to master on Featuretools.
       uses: featurelabs/circleci-api@master
-      # if: latest status of integration tests is successful
+      # if: latest status on CircleCI is successful
 
-    - name: Run integration tests.
+    - name: Triggers CircleCI
       uses: featurelabs/circleci-api@master
-      # if: latest commit in Featuretools was within period
+      # if: there was a recent commit to master on Featuretools
 ```
 
 Then, add the following secrets to the repository settings:

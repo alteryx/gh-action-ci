@@ -19,7 +19,6 @@ jobs:
         run: |
           import subprocess
           from datetime import datetime, timedelta
-          from dateutil.parser import parse
 
           recent = eval('timedelta(%s)' % 'minutes=60')
           args = r"git log -1 --format=%cd --date=unix".split()

@@ -1,6 +1,13 @@
 import pandas as pd
 import requests
 
+
+def latest_commit(repository):
+    url = "https://api.github.com/repos/{repository}/commits" % repository
+    # if since: url += "?since=%s" % since
+    response = requests.get(url)
+
+
 def latest_workflow(repository, circle_token=''):
     url = "https://circleci.com/api/v1.1"
     url += "/project/github/{repository}/tree/master"
@@ -20,12 +27,8 @@ def latest_workflow(repository, circle_token=''):
     df, key = pd.DataFrame(records), 'workflow_id'
     workflows, workflow_id = df.groupby(key, sort=False), df[key][1]
     workflow = workflows.get_group(workflow_id)
-
-    line = '-' * 25
-    print('\n', line, ' Latest Status on CircleCI ', line, '\n')
-    keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
-    string = workflow[keys].to_string(index=False)
-    print(string, '\n')
-
     return workflow
- 
+
+
+def project_build(repository, circle_token=''):
+    pass

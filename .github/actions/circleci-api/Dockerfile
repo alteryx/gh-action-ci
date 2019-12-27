@@ -1,7 +1,7 @@
 FROM python:3.7
 
-ADD circleci circleci
-ADD github github
-ADD entrypoint.py entrypoint.py
+ADD scripts scripts
+ADD main.py main.py
+RUN pip install pandas requests
 
-ENTRYPOINT ["python", "/entrypoint.py"]
+ENTRYPOINT ["python", "/main.py"]

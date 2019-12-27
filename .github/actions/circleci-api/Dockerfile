@@ -1,6 +1,6 @@
 FROM python:3.7
 
-ADD api.py api.py
+ADD api api
 ADD main.py main.py
 RUN pip install pandas requests -q
 

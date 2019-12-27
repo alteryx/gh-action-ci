@@ -8,5 +8,5 @@ jobs:
     - name: One
       run: |
         import os
-        print(${{ github.repository }})
+        print('${{ github.repository }}')
       shell: python

@@ -9,7 +9,7 @@ jobs:
       - uses: ./.github/actions/circleci-api
         with:
           run: latest_workflow_status --repository facebook/react # placeholder
-      - if: succes()
+      - if: success()
         uses: actions/checkout@v2
         with:
           repository: featurelabs/featuretools

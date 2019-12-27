@@ -16,7 +16,6 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.task }}
-    - --repository
     - ${{ inputs.repository }}
     - --circle-token
     - ${{ inputs.circle-token }}

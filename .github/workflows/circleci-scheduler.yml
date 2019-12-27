@@ -5,8 +5,12 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-    - name: One
-      run: |
-        import os
-        print('${{ github.repository }}')
-      shell: python
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/circleci-api
+        with:
+          run: latest_workflow_status --repository facebook/react # placeholder
+      - if: succes()
+        uses: actions/checkout@v2
+        with:
+          repository: featurelabs/featuretools
+      - run: git log -1 --format=%cd

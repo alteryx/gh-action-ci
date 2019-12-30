@@ -1,13 +1,15 @@
 import api
 from argparse import ArgumentParser
-from dateutil.parser import parse
 from datetime import datetime, timedelta
+from dateutil.parser import parse
+
 
 class colors:
     END = '\033[0m'
     GREEN = '\033[92m'
     RED = '\033[91m'
     YELLOW = '\033[93m'
+
 
 def is_recent_commit(commit, recent):
     recent = eval('timedelta(%s)' % recent)
@@ -18,7 +20,7 @@ def is_recent_commit(commit, recent):
 
     # Print status of the latest commit.
     info = 'The latest commit {0} occurred {1} ago.'
-    message = commit['message'].splitlines()[0]    
+    message = commit['message'].splitlines()[0]
     message = colors.YELLOW + message + colors.END
     relative = str(elapsed).split('.')[0]
     relative = relative.replace(',', '')

@@ -19,7 +19,7 @@ jobs:
       - name: Check for successful workflow status on CircleCI.
         uses: featurelabs/circleci-api@master
         with:
-          task: latest_workflow_status
+          task: is_workflow_success
           repository: ${{ github.repository }}
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 

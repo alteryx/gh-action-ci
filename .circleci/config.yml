@@ -8,8 +8,8 @@ jobs:
       - run: |
           echo success
 
-workflows:
-  version: 2
-  integration_tests:
-    jobs:
-      - build
+# workflows:
+#   version: 2
+#   integration_tests:
+#     jobs:
+#       - build

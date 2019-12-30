@@ -39,7 +39,7 @@ def main():
     task.add_argument('--circle-token')
     task = task.parse_args()
 
-    if task.name == 'latest_workflow_status':
+    if task.name == 'is_workflow_success':
         workflow = api.latest_workflow(task.repository, task.circle_token)
 
         line = '-' * 25

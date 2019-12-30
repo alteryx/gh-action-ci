@@ -16,16 +16,28 @@ jobs:
   featuretools:
     runs-on: ubuntu-latest
     steps:
-    - name: Checks the latest status on CircleCI.
-      uses: featurelabs/circleci-api@master
+      - name: Check for successful workflow status on CircleCI.
+        uses: featurelabs/circleci-api@master
+        with:
+          task: latest_workflow_status
+          repository: ${{ github.repository }}
+          circle-token: ${{ secrets.CIRCLE_TOKEN }}
 
-    - name: Checks for recent commit to master on Featuretools.
-      uses: featurelabs/circleci-api@master
-      # if: latest status on CircleCI is successful
+      - if: success()
+        name: Check for recent commit to Featuretools.
+        uses: featurelabs/circleci-api@master
+        with:
+          task: is_recent_commit
+          repository: featurelabs/featuretools
+          recent: days=7
 
-    - name: Triggers CircleCI
-      uses: featurelabs/circleci-api@master
-      # if: there was a recent commit to master on Featuretools
+      - if: success()
+        name: Trigger project build on CircleCI.
+        uses: featurelabs/circleci-api@master
+        with:
+          task: project_build
+          repository: ${{ github.repository }}
+          circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
 Then, add the following secrets to the repository settings:

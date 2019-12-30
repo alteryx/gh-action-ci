@@ -1,7 +1,15 @@
- version: 2
- jobs:
-   build:
-     docker:
-       - image: circleci/ruby:2.4.1
-     steps:
-       - run: echo success
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - run: |
+          echo success
+
+workflows:
+  version: 2
+  integration_tests:
+    jobs:
+      - build

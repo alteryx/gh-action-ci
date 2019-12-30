@@ -1,8 +1,14 @@
-# CircleCI Scheduler
+# CircleCI API
 
-A GitHub Action for scheduling CircleCI dynamically.
+A GitHub Action for integrating with CircleCI.
 
-## Install
+## Examples
+
+### CircleCI Scheduler
+
+This workflow uses the GitHub Action to schedule CircleCI on recent commits to Featuretools.
+
+#### Install
 
 In your repository, add the following lines to `.github/workflows/circleci-scheduler.yml`:
 
@@ -41,6 +47,5 @@ jobs:
 ```
 
 Then, add the following secrets to the repository settings:
-  - `CIRCLE_TOKEN`
 
-## Usage
+  - `CIRCLE_TOKEN`

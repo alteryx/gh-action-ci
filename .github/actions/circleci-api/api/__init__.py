@@ -19,7 +19,7 @@ def latest_workflow(repository, circle_token=''):
 
     assert response.status_code == 200, response
     json = response.json()
-    assert json, 'workflows not found'
+    assert json, 'no workflows found'
 
     records = []
     for test in json:

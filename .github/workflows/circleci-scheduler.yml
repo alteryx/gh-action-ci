@@ -2,14 +2,14 @@ on: push
 
 name: CircleCI Scheduler
 jobs:
-  demo:
+  featuretools:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub Action.
         uses: actions/checkout@v2
 
       - name: Check for successful workflow status on CircleCI.
-        uses: ./.github/actions/circleci-api
+        uses: ./circleci-api
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
@@ -17,7 +17,7 @@ jobs:
 
       - if: success()
         name: Check for recent commit to Featuretools.
-        uses: ./.github/actions/circleci-api
+        uses: ./circleci-api
         with:
           task: is_recent_commit
           repository: featurelabs/featuretools
@@ -25,7 +25,7 @@ jobs:
 
       - if: success()
         name: Trigger project build on CircleCI.
-        uses: ./.github/actions/circleci-api
+        uses: ./circleci-api
         with:
           task: project_build
           repository: ${{ github.repository }}

@@ -13,10 +13,9 @@ def latest_commit(repository):
 
 def latest_workflow(repository, circle_token=''):
     url = "https://circleci.com/api/v1.1"
-    url += "/project/github/{repository}/tree/master"
-    url += "?circle-token={token}&limit=5&offset=5&filter=completed"
-    url = url.format(repository=repository, token=circle_token)
-    response = requests.get(url)
+    url += "/project/github/{0}/tree/master"
+    url += "?circle-token={1}&limit=5&offset=5&filter=completed"
+    response = requests.get(url.format(repository, circle_token))
 
     assert response.status_code == 200, response
     json = response.json()
@@ -34,4 +33,8 @@ def latest_workflow(repository, circle_token=''):
 
 
 def project_build(repository, circle_token=''):
-    pass
+    url = "https://circleci.com/api/v1.1"
+    url += "/project/github/{0}/build?circle-token={1}"
+    response = requests.post(url.format(repository, circle_token))
+    assert response.status_code == 200, response
+    return response.json()

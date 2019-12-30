@@ -16,7 +16,7 @@ def is_recent_commit(commit, recent):
     elapsed = datetime.utcnow() - date
     recent = elapsed <= recent
 
-    # Print Latest Commit
+    # Print status of the latest commit.
     info = 'The latest commit {0} occurred {1} ago.'
     message = commit['message'].splitlines()[0]    
     message = colors.YELLOW + message + colors.END
@@ -52,6 +52,10 @@ def main():
         commit = api.latest_commit(task.repository)
         recent = is_recent_commit(commit, recent=task.recent)
         assert recent, 'latest commit was not recent'
+
+    elif task.name == 'project_build':
+        reponse = api.project_build(task.repository, task.circle_token)
+        print(reponse['body'])
 
     else:
         raise ValueError('task not supported')

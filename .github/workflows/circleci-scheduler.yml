@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check for successful workflow status on CircleCI.
-        uses: ./circleci-api
+        uses: .
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
@@ -17,7 +17,7 @@ jobs:
 
       - if: success()
         name: Check for recent commit to Featuretools.
-        uses: ./circleci-api
+        uses: .
         with:
           task: is_recent_commit
           repository: featurelabs/featuretools
@@ -25,7 +25,7 @@ jobs:
 
       - if: success()
         name: Trigger project build on CircleCI.
-        uses: ./circleci-api
+        uses: .
         with:
           task: project_build
           repository: ${{ github.repository }}

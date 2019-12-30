@@ -1,10 +1,39 @@
 import api
-import argparse
+from argparse import ArgumentParser
+from dateutil.parser import parse
+from datetime import datetime, timedelta
 
-if __name__ == '__main__':
-    task = argparse.ArgumentParser()
+class colors:
+    END = '\033[0m'
+    GREEN = '\033[92m'
+    RED = '\033[91m'
+    YELLOW = '\033[93m'
+
+def is_recent_commit(commit, recent):
+    recent = eval('timedelta(%s)' % recent)
+    date = parse(commit['author']['date'])
+    date = date.replace(tzinfo=None)
+    elapsed = datetime.utcnow() - date
+    recent = elapsed <= recent
+
+    # Print Latest Commit
+    info = 'The latest commit {0} occurred {1} ago.'
+    message = commit['message'].splitlines()[0]    
+    message = colors.YELLOW + message + colors.END
+    relative = str(elapsed).split('.')[0]
+    relative = relative.replace(',', '')
+    color = colors.GREEN if recent else colors.RED
+    relative = color + relative + colors.END
+    print(info.format(message, relative))
+
+    return recent
+
+
+def main():
+    task = ArgumentParser()
     task.add_argument('name')
     task.add_argument('repository')
+    task.add_argument('--recent', default='days=30')
     task.add_argument('--circle-token')
     task = task.parse_args()
 
@@ -21,6 +50,12 @@ if __name__ == '__main__':
 
     elif task.name == 'is_recent_commit':
         commit = api.latest_commit(task.repository)
+        recent = is_recent_commit(commit, recent=task.recent)
+        assert recent, 'latest commit was not recent'
 
     else:
         raise ValueError('task not supported')
+
+
+if __name__ == '__main__':
+    main()

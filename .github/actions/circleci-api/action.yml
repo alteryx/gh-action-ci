@@ -17,5 +17,7 @@ runs:
   args:
     - ${{ inputs.task }}
     - ${{ inputs.repository }}
+    - --recent
+    - ${{ inputs.recent }}
     - --circle-token
     - ${{ inputs.circle-token }}

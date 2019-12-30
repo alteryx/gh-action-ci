@@ -3,13 +3,12 @@ import requests
 
 
 def latest_commit(repository):
-    url = "https://api.github.com/repos/{repository}/commits" % repository
-    # if since: url += "?since=%s" % since
+    url = "https://api.github.com/repos/%s/commits" % repository
     response = requests.get(url)
     assert response.status_code == 200, response
     json = response.json()
-    return json
-
+    commit = json[0]['commit']
+    return commit
 
 
 def latest_workflow(repository, circle_token=''):

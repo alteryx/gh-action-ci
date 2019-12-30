@@ -5,7 +5,7 @@ jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout local GitHub Action.
+      - name: Checkout GitHub Action.
         uses: actions/checkout@v2
       - name: Check for successful workflow status on CircleCI.
         uses: ./.github/actions/circleci-api
@@ -14,23 +14,12 @@ jobs:
           repository: facebook/react # placeholder
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
       - if: success()
-        name: Checkout master branch in Featuretools.
-        uses: actions/checkout@v2
+        name: Check for recent commit to Featuretools.
+        uses: ./.github/actions/circleci-api
         with:
+          task: is_recent_commit
           repository: featurelabs/featuretools
-      - name: Check for recent commit to Featuretools.
-        run: |
-          import subprocess
-          from datetime import datetime, timedelta
-
-          recent = timedelta(days=100)
-          args = r"git log -1 --format=%cd --date=unix".split()
-          timestamp = int(subprocess.check_output(args))
-          latest_commit_time = datetime.utcfromtimestamp(timestamp)
-
-          elapsed = datetime.utcnow() - latest_commit_time
-          assert elapsed <= recent, 'latest commit was not recent'
-        shell: python
+          recent: days=7
       - if: success()
         name: Trigger project build on CircleCI.
         run: echo

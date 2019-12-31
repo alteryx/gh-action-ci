@@ -31,6 +31,15 @@ def is_recent_commit(commit, recent):
     return recent
 
 
+def is_workflow_success(workflow):
+    line = '-' * 25
+    print('\n', line, ' Latest Status on CircleCI ', line, '\n')
+    keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
+    print(workflow[keys].to_string(index=False), '\n')
+    success = workflow.status.eq('success').all()
+    return workflow
+
+
 def main():
     task = ArgumentParser()
     task.add_argument('name')
@@ -41,13 +50,7 @@ def main():
 
     if task.name == 'is_workflow_success':
         workflow = api.latest_workflow(task.repository, task.circle_token)
-
-        line = '-' * 25
-        print('\n', line, ' Latest Status on CircleCI ', line, '\n')
-        keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
-        print(workflow[keys].to_string(index=False), '\n')
-
-        success = workflow.status.eq('success').all()
+        success = is_workflow_success(workflow)
         assert success, 'latest workflow was not successful'
 
     elif task.name == 'is_recent_commit':

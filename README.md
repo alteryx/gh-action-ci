@@ -1,6 +1,6 @@
 # CircleCI API
 
-A GitHub Action for integrating with CircleCI.
+A GitHub Action for integrating CircleCI.
 
 ## Examples
 

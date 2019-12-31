@@ -1,4 +1,4 @@
-import api
+import circleci
 from argparse import ArgumentParser
 from datetime import datetime, timedelta
 from dateutil.parser import parse
@@ -49,17 +49,17 @@ def main():
     task = task.parse_args()
 
     if task.name == 'is_workflow_success':
-        workflow = api.latest_workflow(task.repository, task.circle_token)
+        workflow = circleci.latest_workflow(task.repository, task.circle_token)
         success = is_workflow_success(workflow)
         assert success, 'latest workflow was not successful'
 
     elif task.name == 'is_recent_commit':
-        commit = api.latest_commit(task.repository)
+        commit = circleci.latest_commit(task.repository)
         recent = is_recent_commit(commit, recent=task.recent)
         assert recent, 'latest commit was not recent'
 
     elif task.name == 'project_build':
-        reponse = api.project_build(task.repository, task.circle_token)
+        reponse = circleci.project_build(task.repository, task.circle_token)
         print(reponse['body'])
 
     else:

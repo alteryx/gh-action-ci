@@ -28,7 +28,7 @@ def latest_workflow(repository, circle_token=''):
         records.append(workflows)
 
     df, key = pd.DataFrame(records), 'workflow_id'
-    workflows, workflow_id = df.groupby(key, sort=False), df[key][1]
+    workflows, workflow_id = df.groupby(key, sort=False), df[key][0]
     workflow = workflows.get_group(workflow_id)
     return workflow
 

@@ -37,7 +37,7 @@ def is_workflow_success(workflow):
     keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
     print(workflow[keys].to_string(index=False), '\n')
     success = workflow.status.eq('success').all()
-    return workflow
+    return success
 
 
 def main():

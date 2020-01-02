@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 
-URL = "https://circleci.com/api/v1.1"
+API = "https://circleci.com/api/v1.1"
 
 
 def latest_commit(repository):
@@ -14,7 +14,7 @@ def latest_commit(repository):
 
 
 def latest_workflow(repository, circle_token=''):
-    url = URL + "/project/github/{0}/tree/master?circle-token={1}"
+    url = API + "/project/github/{0}/tree/master?circle-token={1}"
     response = requests.get(url.format(repository, circle_token))
 
     assert response.status_code == 200, response
@@ -34,7 +34,7 @@ def latest_workflow(repository, circle_token=''):
 
 
 def project_build(repository, circle_token=''):
-    url = URL + "/project/github/{0}/build?circle-token={1}"
+    url = API + "/project/github/{0}/build?circle-token={1}"
     response = requests.post(url.format(repository, circle_token))
     assert response.status_code == 200, response
     return response.json()

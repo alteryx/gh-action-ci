@@ -9,21 +9,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check for successful workflow status on CircleCI.
+        id: is_workflow_success
         uses: ./
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 
-      - if: success()
+      - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
+        id: is_recent_commit
         uses: ./
         with:
           task: is_recent_commit
           repository: featurelabs/featuretools
           recent: days=7
 
-      - if: success()
+      - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build on CircleCI.
         uses: ./
         with:

@@ -37,7 +37,6 @@ def is_workflow_success(workflow):
     keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
     print(workflow[keys].to_string(index=False), '\n')
     success = workflow.status.eq('success').all()
-    return success
 
 
 def main():
@@ -51,12 +50,12 @@ def main():
     if task.name == 'is_workflow_success':
         workflow = circleci.latest_workflow(task.repository, task.circle_token)
         success = is_workflow_success(workflow)
-        assert success, 'latest workflow was not successful'
+        print("::set-output name=value::%s" % success)
 
     elif task.name == 'is_recent_commit':
         commit = circleci.latest_commit(task.repository)
         recent = is_recent_commit(commit, recent=task.recent)
-        assert recent, 'latest commit was not recent'
+        print("::set-output name=value::%s" % recent)
 
     elif task.name == 'project_build':
         reponse = circleci.project_build(task.repository, task.circle_token)

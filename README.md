@@ -22,23 +22,25 @@ jobs:
   featuretools:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for successful workflow status on CircleCI.
+      - name: Check for successful workflow status in CircleCI.
         uses: featurelabs/circleci-api@master
+        id: is_workflow_success
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 
-      - if: success()
+      - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
         uses: featurelabs/circleci-api@master
+        id: is_recent_commit
         with:
           task: is_recent_commit
           repository: featurelabs/featuretools
           recent: days=7
 
-      - if: success()
-        name: Trigger project build on CircleCI.
+      - if: contains(steps.is_recent_commit.outputs.value, 'True')
+        name: Trigger project build in CircleCI.
         uses: featurelabs/circleci-api@master
         with:
           task: project_build

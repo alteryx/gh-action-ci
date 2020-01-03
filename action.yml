@@ -1,5 +1,5 @@
 name: "CircleCI API"
-description: "A GitHub Action for integrating with CircleCI."
+description: "A GitHub Action for integrating CircleCI."
 inputs:
   task:
     description: "The name of a task to run."

@@ -15,7 +15,8 @@ In your repository, add the following lines to `.github/workflows/circleci-sched
 ```yaml
 on:
   schedule:
-    - cron:  '*/5 * * * *'
+    # At 12:00 on every day-of-week from Monday through Friday.
+    - cron:  '0 12 * * 1-5'
 
 name: CircleCI Scheduler
 jobs:

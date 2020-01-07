@@ -34,8 +34,7 @@ def is_recent_commit(commit, recent):
 def is_workflow_success(workflow):
     line = '-' * 25
     print('\n', line, ' Latest Status on CircleCI ', line, '\n')
-    keys = ['workflow_id', 'workflow_name', 'job_name', 'status']
-    print(workflow[keys].to_string(index=False), '\n')
+    print(workflow.to_string(index=False), '\n')
     success = workflow.status.eq('success').all()
     return success
 

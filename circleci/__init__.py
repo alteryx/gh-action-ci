@@ -20,12 +20,15 @@ def latest_workflow(repository, circle_token=''):
     assert response.status_code == 200, response
     integration_tests = response.json()
     assert integration_tests, 'no integration tests found'
+    keys = ['workflow_id', 'workflow_name', 'job_name']
 
     records = []
     for test in integration_tests:
-        workflows = test['workflows']
-        workflows['status'] = test['status']
-        records.append(workflows)
+        record = test['workflows']
+        values = map(record.get, keys)
+        record = dict(zip(keys, values))
+        record['status'] = test['status']
+        records.append(record)
 
     df, key = pd.DataFrame(records), 'workflow_id'
     workflows, workflow_id = df.groupby(key, sort=False), df[key][0]

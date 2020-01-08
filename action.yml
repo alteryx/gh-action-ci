@@ -1,0 +1,26 @@
+name: "CircleCI API"
+description: "A GitHub Action for integrating CircleCI."
+inputs:
+  task:
+    description: "The name of a task to run."
+    required: true
+  repository:
+    description: "The GitHub repository to use."
+    required: true
+  recent:
+    description: "A time delta to use for time comparisons."
+    required: false
+  circle-token:
+    description: "A personal API token to access the CircleCI API."
+    required: false
+    default: ""
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.task }}
+    - ${{ inputs.repository }}
+    - --recent
+    - ${{ inputs.recent }}
+    - --circle-token
+    - ${{ inputs.circle-token }}

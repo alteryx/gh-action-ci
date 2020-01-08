@@ -10,11 +10,6 @@ def circle_token(pytestconfig):
     return pytestconfig.getoption("circle_token")
 
 
-@pytest.fixture()
-def commit():
-    return {'author': {'date': '1970-01-01'}}
-
-
 def test_latest_commit():
     commit = latest_commit('featurelabs/featuretools')
     assert 'author' in commit and 'date' in commit['author']
@@ -25,7 +20,8 @@ def test_project_build(circle_token):
     assert response['body'] == 'Build created'
 
 
-def test_recent_commit(commit):
+def test_recent_commit():
+    commit = {'author': {'date': '1970-01-01'}}
     recent = utils.is_recent_commit(commit, recent='days=7')
     assert not recent
 

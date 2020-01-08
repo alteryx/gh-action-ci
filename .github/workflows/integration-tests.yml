@@ -14,9 +14,10 @@ jobs:
         with:
           python-version: 3.7
 
-      - name: Install Test Requirements
-        run: pip install -r requirements.txt --progress-bar off
-        run: pip install -r test-requirements.txt --progress-bar off
+      - name: Install Requirements
+        run: |
+          pip install -r requirements.txt --progress-bar off
+          pip install -r test-requirements.txt --progress-bar off
 
       - name: Run Unit Tests
         run: >

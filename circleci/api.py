@@ -26,8 +26,7 @@ def latest_workflow(repository, circle_token=''):
     records = []
     for test in integration_tests:
         record = test['workflows']
-        values = map(record.get, keys)
-        record = dict(zip(keys, values))
+        record = {key: record[key] for key in keys}
         record['status'] = test['status']
         records.append(record)
 

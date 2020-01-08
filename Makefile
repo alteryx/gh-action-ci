@@ -12,6 +12,5 @@ lint-tests:
 	isort --check-only --recursive circleci
 
 unit-tests:
-	pytest circleci/test.py --cov=circleci \
-	--circle-token ${CIRCLE_TOKEN} \
+	pytest circleci/test.py --cov=circleci --circle-token ${CIRCLE_TOKEN} \
 	--cache-clear --show-capture=stderr --disable-warnings -vv

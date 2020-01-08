@@ -1,9 +1,9 @@
 on: push
 
-name: Integration Tests
+name: Test Suite
 jobs:
-  unit_tests:
-    name: Unit Tests
+  integration:
+    name: Integration Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

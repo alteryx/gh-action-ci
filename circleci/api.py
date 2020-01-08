@@ -13,10 +13,11 @@ def latest_commit(repository):
     return commit
 
 
-def latest_workflow(repository, circle_token=''):
-    url = CIRCLE_API + "/project/github/{0}/tree/master"
-    url += '?circle-token={1}&filter=completed'
-    response = requests.get(url.format(repository, circle_token))
+def latest_workflow(repository, circle_token='', status='completed'):
+    url = CIRCLE_API + "/project/github/{0}/tree"
+    url += '/master?circle-token={1}&filter={2}'
+    url = url.format(repository, circle_token, status)
+    response = requests.get(url)
 
     assert response.status_code == 200, response
     integration_tests = response.json()

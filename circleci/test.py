@@ -33,4 +33,4 @@ def test_recent_commit(commit):
 def test_workflow_success(circle_token):
     workflow = latest_workflow(REPOSITORY, circle_token)
     success = utils.is_workflow_success(workflow)
-    assert not success
+    assert success

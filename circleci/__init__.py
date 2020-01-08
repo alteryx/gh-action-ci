@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from .utils import is_recent_commit, is_workflow_success
 
 CIRCLE_API = "https://circleci.com/api/v1.1"
 

@@ -33,13 +33,13 @@ def test_recent_commit():
     assert recent
 
 
-def test_workflow_success(circle_token):
-    workflow = latest_workflow(REPOSITORY, circle_token, status='successful')
-    success = is_workflow_success(workflow)
-    assert success
-
-
 def test_workflow_failure(circle_token):
     workflow = latest_workflow(REPOSITORY, circle_token, status='failed')
     success = is_workflow_success(workflow)
     assert not success
+
+
+def test_workflow_success(circle_token):
+    workflow = latest_workflow(REPOSITORY, circle_token, status='successful')
+    success = is_workflow_success(workflow)
+    assert success

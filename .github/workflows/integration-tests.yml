@@ -16,5 +16,6 @@ jobs:
         run: make install
       - name: Run Lint Tests
         run: make lint-tests
-      - name: Run Unit Tests
+      - if: always()
+        name: Run Unit Tests
         run: make CIRCLE_TOKEN=${{ secrets.CIRCLE_TOKEN }} unit-tests

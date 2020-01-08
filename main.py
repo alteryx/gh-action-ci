@@ -21,8 +21,8 @@ def main():
         print("::set-output name=value::%s" % recent)
 
     elif task.name == 'project_build':
-        reponse = circleci.project_build(task.repository, task.circle_token)
-        print(reponse['body'])
+        response = circleci.project_build(task.repository, task.circle_token)
+        print(response['body'])
 
     else:
         raise ValueError('task not supported')

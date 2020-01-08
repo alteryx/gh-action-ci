@@ -40,6 +40,6 @@ def test_workflow_success(circle_token):
 
 
 def test_workflow_failure(circle_token):
-    workflow = latest_workflow(REPOSITORY, circle_token, status='failure')
+    workflow = latest_workflow(REPOSITORY, circle_token, status='failed')
     success = is_workflow_success(workflow)
     assert not success

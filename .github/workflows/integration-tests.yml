@@ -1,0 +1,24 @@
+on: push
+
+name: Integration Tests
+jobs:
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Install Test Requirements
+        run: pip install -r test-requirements.txt
+
+      - name: Run Unit Tests
+        run: >
+          pytest circleci/test.py --cov=circleci 
+          --circle-token ${{ secrets.CIRCLE_TOKEN }} 
+          --cache-clear --show-capture=stderr --disable-warnings -vv

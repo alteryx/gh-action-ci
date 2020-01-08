@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta  # noqa
+
 from dateutil.parser import parse
 
 

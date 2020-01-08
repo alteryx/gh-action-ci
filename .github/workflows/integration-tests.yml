@@ -8,19 +8,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Setup Python 3.7
         uses: actions/setup-python@v1
         with:
           python-version: 3.7
-
       - name: Install Requirements
-        run: |
-          pip install -r requirements.txt --progress-bar off
-          pip install -r test-requirements.txt --progress-bar off
-
+        run: make install
+      - name: Run Lint Tests
+        run: make lint-tests
       - name: Run Unit Tests
-        run: >
-          pytest circleci/test.py --cov=circleci 
-          --circle-token ${{ secrets.CIRCLE_TOKEN }} 
-          --cache-clear --show-capture=stderr --disable-warnings -vv
+        run: make CIRCLE_TOKEN=${{ secrets.CIRCLE_TOKEN }} unit-tests

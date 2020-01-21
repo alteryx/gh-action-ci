@@ -1,16 +1,57 @@
-# CircleCI API
+# GitHub Action - CircleCI
 
 A GitHub Action for integrating CircleCI.
 
-## Examples
+## Tasks
 
-### CircleCI Scheduler
+### `is_workflow_success`
 
-This workflow uses the GitHub Action to schedule CircleCI on recent commits to Featuretools.
+|   Parameter  | Required | Description |
+|:------------:|:--------:|:-----------:|
+|  repository  |    yes   |             |
+| circle-token |    yes   |             |
 
-#### Install
+```yaml
+- uses: featurelabs/gh-action-circleci@master
+  with:
+    task: is_workflow_success
+    repository: ${{ github.repository }}
+    circle-token: ${{ secrets.CIRCLE_TOKEN }}
+```
 
-In your repository, add the following lines to `.github/workflows/circleci-scheduler.yml`:
+### `is_recent_commit`
+
+|   Parameter  | Required | Description |
+|:------------:|:--------:|:-----------:|
+|  repository  |    yes   |             |
+|    recent    |    yes   |             |
+
+```yaml
+- uses: featurelabs/gh-action-circleci@master
+  with:
+    task: is_recent_commit
+    repository: featurelabs/featuretools
+    recent: days=7
+```
+
+### `project_build`
+
+|   Parameter  | Required | Description |
+|:------------:|:--------:|:-----------:|
+|  repository  |    yes   |             |
+| circle-token |    yes   |             |
+
+```yaml
+- uses: featurelabs/gh-action-circleci@master
+  with:
+    task: project_build
+    repository: ${{ github.repository }}
+    circle-token: ${{ secrets.CIRCLE_TOKEN }}
+```
+
+## Example
+
+This workflow uses the tasks to schedule project builds in CircleCI on recent commits to Featuretools.
 
 ```yaml
 on:
@@ -24,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check for successful workflow status in CircleCI.
-        uses: featurelabs/circleci-api@master
+        uses: featurelabs/gh-action-circleci@master
         id: is_workflow_success
         with:
           task: is_workflow_success
@@ -33,7 +74,7 @@ jobs:
 
       - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
-        uses: featurelabs/circleci-api@master
+        uses: featurelabs/gh-action-circleci@master
         id: is_recent_commit
         with:
           task: is_recent_commit
@@ -42,13 +83,13 @@ jobs:
 
       - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build in CircleCI.
-        uses: featurelabs/circleci-api@master
+        uses: featurelabs/gh-action-circleci@master
         with:
           task: project_build
           repository: ${{ github.repository }}
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-Then, add the following secrets to the repository settings:
+To install this workflow in your repository, add the lines above to `.github/workflows/circleci-scheduler.yml`. Then, add the following secret in the repository settings:
 
   - `CIRCLE_TOKEN`

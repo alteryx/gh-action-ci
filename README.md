@@ -4,7 +4,7 @@ A GitHub Action for integrating CircleCI.
 
 ## Tasks
 
-#### `is_workflow_success`
+### `is_workflow_success`
 
 |   Parameter  | Required | Description |
 |:------------:|:--------:|:-----------:|
@@ -19,7 +19,7 @@ A GitHub Action for integrating CircleCI.
     circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-#### `is_recent_commit`
+### `is_recent_commit`
 
 |   Parameter  | Required | Description |
 |:------------:|:--------:|:-----------:|
@@ -34,7 +34,7 @@ A GitHub Action for integrating CircleCI.
     recent: days=7
 ```
 
-#### `project_build`
+### `project_build`
 
 |   Parameter  | Required | Description |
 |:------------:|:--------:|:-----------:|
@@ -90,4 +90,4 @@ jobs:
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-To install, add the lines to `.github/workflows/circleci-scheduler.yml`. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
+To install this workflow in your repository, add the lines above to `.github/workflows/circleci-scheduler.yml`. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.

@@ -4,27 +4,53 @@ A GitHub Action for integrating CircleCI.
 
 ## Tasks
 
+This should be an explanation for what the tasks are and how to use them.
+
 ### `is_workflow_success`
 
-|   Parameter  | Required | Description |
-|:------------:|:--------:|:-----------:|
-|  repository  |    yes   |             |
-| circle-token |    yes   |             |
+This task will check whether the latest workflow completed successfully in CircleCI. 
+
+|  Parameters  | Required |                  Description                     |
+|:------------:|:--------:|:------------------------------------------------:|
+|  repository  |    yes   |    The repository to check for a sucessful workflow status.   |
+| circle-token |    yes   | A personal API token to access the CircleCI API. |
+
+The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
+
+```
+steps.<step id>.outputs.value
+```
+
+This should be an explanation for the following code snippet.
 
 ```yaml
-- uses: featurelabs/gh-action-circleci@master
+- name: Check for successful workflow status in CircleCI.
+  uses: featurelabs/gh-action-circleci@master
+  id: is_workflow_success
   with:
     task: is_workflow_success
     repository: ${{ github.repository }}
     circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
+<hr>
+
 ### `is_recent_commit`
 
-|   Parameter  | Required | Description |
+This task will check whether the latest commit happened recently in GitHub. The latest commit will be used from the default branch of a public repository.
+
+|  Parameters  | Required | Description |
 |:------------:|:--------:|:-----------:|
-|  repository  |    yes   |             |
-|    recent    |    yes   |             |
+|  repository  |    yes   | The public repository to check for a recent commit. |
+|    recent    |    yes   | The period used to define whether a commit happened recently. |
+
+The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
+
+```
+steps.<step id>.outputs.value
+```
+
+This should be an explanation for the following code snippet.
 
 ```yaml
 - uses: featurelabs/gh-action-circleci@master
@@ -36,10 +62,14 @@ A GitHub Action for integrating CircleCI.
 
 ### `project_build`
 
-|   Parameter  | Required | Description |
+This task will trigger a project build in CircleCI.
+
+|  Parameters  | Required | Description |
 |:------------:|:--------:|:-----------:|
-|  repository  |    yes   |             |
-| circle-token |    yes   |             |
+|  repository  |    yes   | The repository to build. |
+| circle-token |    yes   | A personal API token to access the CircleCI API. |
+
+This should be an explanation for the following code snippet.
 
 ```yaml
 - uses: featurelabs/gh-action-circleci@master
@@ -48,6 +78,14 @@ A GitHub Action for integrating CircleCI.
     repository: ${{ github.repository }}
     circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
+
+The returned value is a string data type. The value is the response message from CircleCI and can be accessed in successive workflow steps by using the `value` output.
+
+```
+steps.<step id>.outputs.value
+```
+
+<br>
 
 ## Example
 
@@ -90,4 +128,4 @@ jobs:
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-To install this workflow in your repository, add the lines above to `.github/workflows/circleci-scheduler.yml`. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
+To install this workflow, add the lines above to `.github/workflows/circleci-scheduler.yml`. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.

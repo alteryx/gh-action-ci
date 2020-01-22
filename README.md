@@ -69,6 +69,12 @@ This task will trigger a project build in CircleCI.
 |  repository  |    yes   | The repository to build. |
 | circle-token |    yes   | A personal API token to access the CircleCI API. |
 
+The returned value is a string data type. The value is the response message from CircleCI and can be accessed in successive workflow steps by using the `value` output.
+
+```
+steps.<step id>.outputs.value
+```
+
 This should be an explanation for the following code snippet.
 
 ```yaml
@@ -77,12 +83,6 @@ This should be an explanation for the following code snippet.
     task: project_build
     repository: ${{ github.repository }}
     circle-token: ${{ secrets.CIRCLE_TOKEN }}
-```
-
-The returned value is a string data type. The value is the response message from CircleCI and can be accessed in successive workflow steps by using the `value` output.
-
-```
-steps.<step id>.outputs.value
 ```
 
 <br>

@@ -69,7 +69,7 @@ This task will trigger a project build in CircleCI.
 |  repository  |    yes   | The repository to build. |
 | circle-token |    yes   | A personal API token to access the CircleCI API. |
 
-The returned value is is the response message from CircleCI which is a string data type. The value can be accessed in successive workflow steps by using the `value` output.
+The returned value is the response message from CircleCI which is a string data type. The value can be accessed in successive workflow steps by using the `value` output.
 
 ```
 steps.<step id>.outputs.value

@@ -2,90 +2,65 @@
 
 A GitHub Action for integrating CircleCI.
 
+## Usage
+
+Tasks interface with CircleCI and can be used to build workflows. In a workflow step, the `task` parameter must reference the name of a task. This is followed by any parameters for the task.
+
+```yaml
+steps:
+  - uses: featurelabs/gh-action-circleci@master
+    id: <step id>
+    with:
+      task: <task name>
+      # ... parameters for the task
+```
+
+The returned value of a task is available in later steps from the output `value`.
+
+```
+steps.<step id>.outputs.value
+```
+
 ## Tasks
 
-This should be an explanation for what the tasks are and how to use them.
+This is list of the available tasks.
 
 ### `is_workflow_success`
 
-This task will check whether the latest workflow completed successfully in CircleCI. 
+This will check whether the latest workflow completed successfully in CircleCI. 
 
 |  Parameters  | Required |                  Description                     |
 |:------------:|:--------:|:------------------------------------------------:|
 |  repository  |    yes   |    The repository to check for a sucessful workflow status.   |
 | circle-token |    yes   | A personal API token to access the CircleCI API. |
 
-The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
-
-```
-steps.<step id>.outputs.value
-```
-
-This should be an explanation for the following code snippet.
-
-```yaml
-- name: Check for successful workflow status in CircleCI.
-  uses: featurelabs/gh-action-circleci@master
-  id: is_workflow_success
-  with:
-    task: is_workflow_success
-    repository: ${{ github.repository }}
-    circle-token: ${{ secrets.CIRCLE_TOKEN }}
-```
+The returned value is a string data type that will either be `True` or `False`.
 
 <hr>
 
 ### `is_recent_commit`
 
-This task will check whether the latest commit happened recently in GitHub. The latest commit will be used from the default branch of a public repository.
+This will check whether the latest commit happened recently in GitHub. The latest commit will be used from the default branch of a public repository.
 
 |  Parameters  | Required | Description |
 |:------------:|:--------:|:-----------:|
 |  repository  |    yes   | The public repository to check for a recent commit. |
 |    recent    |    yes   | The period used to define whether a commit happened recently. |
 
-The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
-
-```
-steps.<step id>.outputs.value
-```
-
-This should be an explanation for the following code snippet.
-
-```yaml
-- uses: featurelabs/gh-action-circleci@master
-  with:
-    task: is_recent_commit
-    repository: featurelabs/featuretools
-    recent: days=7
-```
+The returned value is a string data type that will either be `True` or `False`.
 
 <hr>
 
 ### `project_build`
 
-This task will trigger a project build in CircleCI.
+This will trigger a project build in CircleCI.
 
 |  Parameters  | Required | Description |
 |:------------:|:--------:|:-----------:|
 |  repository  |    yes   | The repository to build. |
 | circle-token |    yes   | A personal API token to access the CircleCI API. |
 
-The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
-
-```
-steps.<step id>.outputs.value
-```
-
-This should be an explanation for the following code snippet.
-
-```yaml
-- uses: featurelabs/gh-action-circleci@master
-  with:
-    task: project_build
-    repository: ${{ github.repository }}
-    circle-token: ${{ secrets.CIRCLE_TOKEN }}
-```
+The returned value is a string data type. If the project build was triggered, the returned value will be `True`, otherwise `False`. 
 
 <br>
 

@@ -60,6 +60,8 @@ This should be an explanation for the following code snippet.
     recent: days=7
 ```
 
+<hr>
+
 ### `project_build`
 
 This task will trigger a project build in CircleCI.
@@ -69,7 +71,7 @@ This task will trigger a project build in CircleCI.
 |  repository  |    yes   | The repository to build. |
 | circle-token |    yes   | A personal API token to access the CircleCI API. |
 
-The returned value is the response message from CircleCI which is a string data type. The value can be accessed in successive workflow steps by using the `value` output.
+The returned value is a string data type that will either be `True` or `False`. The value can be accessed in successive workflow steps by using the `value` output.
 
 ```
 steps.<step id>.outputs.value
@@ -128,4 +130,4 @@ jobs:
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-To install this workflow, add the lines above to `.github/workflows/circleci-scheduler.yml`. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
+To install this workflow, add the lines above to `.github/workflows/circleci-scheduler.yml` in your repository. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.

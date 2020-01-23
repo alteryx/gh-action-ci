@@ -21,8 +21,8 @@ def main():
         print("::set-output name=value::%s" % recent)
 
     elif task.name == 'project_build':
-        response = circleci.project_build(task.repository, task.circle_token)['body']
-        print("::set-output name=value::%s" % response['body'])
+        response = circleci.project_build(task.repository, task.circle_token)
+        print("::set-output name=value::%s" % response == 'Build created')
         print(response)
 
     else:

@@ -41,4 +41,4 @@ def project_build(repository, circle_token=''):
     url = CIRCLE_API + "/project/github/{0}/build?circle-token={1}"
     response = requests.post(url.format(repository, circle_token))
     assert response.status_code == 200, response
-    return response.json()
+    return response.json()['body']

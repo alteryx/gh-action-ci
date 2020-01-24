@@ -24,7 +24,7 @@ def test_not_recent_commit():
 
 def test_project_build(circle_token):
     response = project_build(REPOSITORY, circle_token)
-    assert response['body'] == 'Build created'
+    assert response == 'Build created'
 
 
 def test_recent_commit():

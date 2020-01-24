@@ -4,7 +4,7 @@ A GitHub Action for integrating CircleCI.
 
 ## Usage
 
-Tasks interface with CircleCI and can be used to build workflows. In a workflow step, the `task` parameter must reference the name of a task. This is followed by any parameters for the task.
+This GitHub Action provides tasks that interface with CircleCI. These tasks can be used to build workflows. In a workflow step, the `task` parameter must reference the name of a task. This is followed by any parameters for the task.
 
 ```yaml
 steps:
@@ -23,16 +23,16 @@ steps.<step id>.outputs.value
 
 ## Tasks
 
-This is list of the available tasks.
+This is a list of the available tasks.
 
 ### `is_workflow_success`
 
 This will check whether the latest workflow completed successfully in CircleCI. 
 
-|  Parameters  | Required |                  Description                     |
-|:------------:|:--------:|:------------------------------------------------:|
-|  repository  |    yes   |    The repository to check for a sucessful workflow status.   |
-| circle-token |    yes   | A personal API token to access the CircleCI API. |
+| Parameters   | Required | Description                                              |
+|--------------|----------|----------------------------------------------------------|
+| repository   | yes      | The repository to check for a sucessful workflow status. |
+| circle-token | yes      | A personal API token to access the CircleCI API.         |
 
 The returned value is a string data type that will either be `True` or `False`.
 
@@ -42,10 +42,10 @@ The returned value is a string data type that will either be `True` or `False`.
 
 This will check whether the latest commit happened recently in GitHub. The latest commit will be used from the default branch of a public repository.
 
-|  Parameters  | Required | Description |
-|:------------:|:--------:|:-----------:|
-|  repository  |    yes   | The public repository to check for a recent commit. |
-|    recent    |    yes   | The period used to define whether a commit happened recently. |
+| Parameters | Required | Description                                                                                                                                                        |
+|------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| repository | yes      | The public repository to check for a recent commit.                                                                                                                |
+| recent     | yes      | The period used to define whether a commit happened recently. The time value must be in a key-value pair format (i.e. `weeks=1, days=1, hours=1, minutes=1`, etc.) |
 
 The returned value is a string data type that will either be `True` or `False`.
 
@@ -55,20 +55,22 @@ The returned value is a string data type that will either be `True` or `False`.
 
 This will trigger a project build in CircleCI.
 
-|  Parameters  | Required | Description |
-|:------------:|:--------:|:-----------:|
-|  repository  |    yes   | The repository to build. |
-| circle-token |    yes   | A personal API token to access the CircleCI API. |
+| Parameters   | Required | Description                                      |
+|--------------|----------|--------------------------------------------------|
+| repository   | yes      | The repository to build.                         |
+| circle-token | yes      | A personal API token to access the CircleCI API. |
 
-The returned value is a string data type. If the project build was triggered, the returned value will be `True`, otherwise `False`. 
+The returned value is a string data type. If the project build was triggered, the value will be `True`, otherwise `False`. 
 
 <br>
 
-## Example
+## Example - CircleCI Scheduler Workflow
 
 This workflow uses the tasks to schedule project builds in CircleCI on recent commits to Featuretools.
 
 ```yaml
+# circleci-scheduler.yml
+
 on:
   schedule:
     # At 12:00 on every day-of-week from Monday through Friday.
@@ -105,4 +107,12 @@ jobs:
           circle-token: ${{ secrets.CIRCLE_TOKEN }}
 ```
 
-To install this workflow, add the lines above to `.github/workflows/circleci-scheduler.yml` in your repository. Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
+To install this workflow, add the file above to the following location in your repository.
+
+```
+.github
+└── workflows
+    └── circleci-scheduler.yml
+```
+
+Then, add `CIRCLE_TOKEN` as a secret in your repository settings.

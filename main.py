@@ -22,7 +22,8 @@ def main():
 
     elif task.name == 'project_build':
         response = circleci.project_build(task.repository, task.circle_token)
-        print(response['body'])
+        print("::set-output name=value::%s" % response == 'Build created')
+        print(response)
 
     else:
         raise ValueError('task not supported')

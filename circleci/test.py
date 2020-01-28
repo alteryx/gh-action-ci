@@ -3,7 +3,7 @@ import pytest
 from . import latest_commit, latest_workflow, project_build
 from .utils import is_recent_commit, is_workflow_success
 
-REPOSITORY = 'featurelabs/circleci-api'
+REPOSITORY = 'featurelabs/gh-action-circleci'
 
 
 @pytest.fixture()
@@ -24,7 +24,7 @@ def test_not_recent_commit():
 
 def test_project_build(circle_token):
     response = project_build(REPOSITORY, circle_token)
-    assert response['body'] == 'Build created'
+    assert response == 'Build created'
 
 
 def test_recent_commit():

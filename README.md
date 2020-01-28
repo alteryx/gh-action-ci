@@ -78,7 +78,7 @@ on:
 
 name: CircleCI Scheduler
 jobs:
-  featuretools:
+  Featuretools:
     runs-on: ubuntu-latest
     steps:
       - name: Check for successful workflow status in CircleCI.

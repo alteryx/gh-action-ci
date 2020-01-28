@@ -7,7 +7,8 @@ CIRCLE_API = "https://circleci.com/api/v1.1"
 def latest_commit(repository):
     url = "https://api.github.com/repos/%s/commits" % repository
     response = requests.get(url)
-    assert response.status_code == 200, response
+    info = '%s (%s)' % (response.reason, response.status_code)
+    assert response.status_code == 200, info
     json = response.json()
     commit = json[0]['commit']
     return commit
@@ -18,8 +19,8 @@ def latest_workflow(repository, circle_token='', status='completed'):
     url += '/master?circle-token={1}&filter={2}'
     url = url.format(repository, circle_token, status)
     response = requests.get(url)
-
-    assert response.status_code == 200, response
+    info = '%s (%s)' % (response.reason, response.status_code)
+    assert response.status_code == 200, info
     integration_tests = response.json()
     assert integration_tests, 'no integration tests found'
     keys = ['workflow_id', 'workflow_name', 'job_name']
@@ -40,5 +41,6 @@ def latest_workflow(repository, circle_token='', status='completed'):
 def project_build(repository, circle_token=''):
     url = CIRCLE_API + "/project/github/{0}/build?circle-token={1}"
     response = requests.post(url.format(repository, circle_token))
-    assert response.status_code == 200, response
+    info = '%s (%s)' % (response.reason, response.status_code)
+    assert response.status_code == 200, info
     return response.json()['body']

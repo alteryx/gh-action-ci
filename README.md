@@ -8,7 +8,7 @@ This GitHub Action provides tasks that interface with CircleCI. These tasks can 
 
 ```yaml
 steps:
-  - uses: featurelabs/gh-action-circleci@master
+  - uses: featurelabs/gh-action-circleci@v1
     id: <step id>
     with:
       task: <task name>
@@ -23,7 +23,7 @@ steps.<step id>.outputs.value
 
 ## Tasks
 
-This is a list of the available tasks.
+This is a list of the available tasks:
 
 ### `is_workflow_success`
 
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check for successful workflow status in CircleCI.
-        uses: featurelabs/gh-action-circleci@master
+        uses: featurelabs/gh-action-circleci@v1
         id: is_workflow_success
         with:
           task: is_workflow_success
@@ -91,7 +91,7 @@ jobs:
 
       - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
-        uses: featurelabs/gh-action-circleci@master
+        uses: featurelabs/gh-action-circleci@v1
         id: is_recent_commit
         with:
           task: is_recent_commit
@@ -100,7 +100,7 @@ jobs:
 
       - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build in CircleCI.
-        uses: featurelabs/gh-action-circleci@master
+        uses: featurelabs/gh-action-circleci@v1
         with:
           task: project_build
           repository: ${{ github.repository }}

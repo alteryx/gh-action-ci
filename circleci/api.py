@@ -14,10 +14,10 @@ def latest_commit(repository):
     return commit
 
 
-def latest_workflow(repository, circle_token='', status='completed'):
+def latest_workflow(repository, circle_token='', status='completed', branch="main"):
     url = CIRCLE_API + "/project/github/{0}/tree"
-    url += '/master?circle-token={1}&filter={2}'
-    url = url.format(repository, circle_token, status)
+    url += '/{4}?circle-token={1}&filter={2}'
+    url = url.format(repository, circle_token, status, branch)
     response = requests.get(url)
     info = '%s (%s)' % (response.reason, response.status_code)
     assert response.status_code == 200, info
@@ -38,8 +38,10 @@ def latest_workflow(repository, circle_token='', status='completed'):
     return workflow
 
 
-def project_build(repository, circle_token=''):
+def project_build(repository, circle_token='', branch=None):
     url = CIRCLE_API + "/project/github/{0}/build?circle-token={1}"
+    if branch is not None:
+        url += "?branch={}".format(branch)
     response = requests.post(url.format(repository, circle_token))
     info = '%s (%s)' % (response.reason, response.status_code)
     assert response.status_code == 200, info

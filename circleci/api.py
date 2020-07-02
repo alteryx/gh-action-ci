@@ -27,7 +27,6 @@ def latest_workflow(repository, circle_token="", status="completed",
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info
     integration_tests = response.json()
-    print(integration_tests)
     assert integration_tests, "no integration tests found"
     keys = ["workflow_id", "workflow_name", "job_name"]
 

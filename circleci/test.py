@@ -48,7 +48,7 @@ def test_workflow_failure(circle_token):
 
 def test_workflow_branch(circle_token):
     workflow = latest_workflow(
-        REPOSITORY, circle_token, status="failed", branch="v0.1.10"
+        REPOSITORY, circle_token, status="failed", branch="v1"
     )
     print(workflow)
 

@@ -46,13 +46,6 @@ def test_workflow_failure(circle_token):
     assert not success
 
 
-def test_workflow_branch(circle_token):
-    workflow = latest_workflow(
-        REPOSITORY, circle_token, status="failed", branch="v1"
-    )
-    print(workflow)
-
-
 def test_workflow_success(circle_token):
     workflow = latest_workflow(REPOSITORY, circle_token, status="successful")
     success = is_workflow_success(workflow)

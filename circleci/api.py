@@ -5,11 +5,12 @@ CIRCLE_API = "https://circleci.com/api/v1.1"
 
 
 def latest_commit(repository, branch=None):
-    data = {}
+    params = {}
     if branch is not None:
-        data["sha"] = branch
+        params["sha"] = branch
     url = "https://api.github.com/repos/%s/commits" % repository
-    response = requests.get(url, data=data)
+    print(params)
+    response = requests.get(url, params=params)
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info
     json = response.json()

@@ -19,7 +19,8 @@ def test_latest_commit():
 def test_latest_commit_branch():
     commit = latest_commit("featurelabs/featuretools", branch="v0.1.10")
     assert "tree" in commit and "sha" in commit["tree"]
-    assert commit["tree"]["sha"] == "ace8d51435fe484476182e908c1ecf9515ec4918"
+    assert commit["tree"]["sha"] == "ff46c8939833d022809d11694409eb1c0a18653f"
+    assert "ace8d51435fe484476182e908c1ecf9515ec4918" in commit["url"]
 
 
 def test_not_recent_commit():

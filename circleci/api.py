@@ -1,6 +1,7 @@
+import urllib.parse
+
 import pandas as pd
 import requests
-import urllib.parse
 
 CIRCLE_API = "https://circleci.com/api/v1.1"
 

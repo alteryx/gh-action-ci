@@ -29,8 +29,10 @@ def test_not_recent_commit():
     assert not recent
 
 
-def test_project_build(circle_token):
-    response = project_build(REPOSITORY, circle_token)
+@pytest.mark.parametrize("branch", [(None), ("main"), ("v1")])
+def test_project_build(circle_token, branch):
+    response = project_build(REPOSITORY, circle_token,
+                             branch=branch)
     assert response == "Build created"
 
 
@@ -40,15 +42,17 @@ def test_recent_commit():
     assert recent
 
 
-def test_workflow_failure(circle_token):
+@pytest.mark.parametrize("branch", [(None), ("main"), ("failed_workflow")])
+def test_workflow_failure(circle_token, branch):
     workflow = latest_workflow(REPOSITORY, circle_token, status="failed",
-                               branch='main')
+                               branch=branch)
     success = is_workflow_success(workflow)
     assert not success
 
 
-def test_workflow_success(circle_token):
+@pytest.mark.parametrize("branch", [(None), ("main"), ("v1")])
+def test_workflow_success(circle_token, branch):
     workflow = latest_workflow(REPOSITORY, circle_token, status="successful",
-                               branch='main')
+                               branch=branch)
     success = is_workflow_success(workflow)
     assert success

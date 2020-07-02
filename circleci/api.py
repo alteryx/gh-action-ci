@@ -19,9 +19,8 @@ def latest_commit(repository, branch=None):
 
 def latest_workflow(repository, circle_token="", status="completed",
                     branch="main"):
-    url = CIRCLE_API + "/project/github/{0}/tree"
-    url += "/{4}?circle-token={1}&filter={2}"
-    url = url.format(repository, circle_token, status, branch)
+    url = CIRCLE_API + f"/project/github/{repository}/tree"
+    url += f"/{branch}?circle-token={circle_token}&filter={status}"
     response = requests.get(url)
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info

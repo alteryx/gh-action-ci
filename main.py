@@ -8,7 +8,7 @@ def main():
     task.add_argument('repository')
     task.add_argument('--recent', default='days=30')
     task.add_argument('--circle-token')
-    task.add_argument('--branch')
+    task.add_argument('--branch', default=None)
     task = task.parse_args()
 
     if task.name == 'is_workflow_success':

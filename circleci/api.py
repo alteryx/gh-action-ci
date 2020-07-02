@@ -23,7 +23,7 @@ def latest_workflow(repository, circle_token="", status="completed",
     if branch is None:
         branch = default_branch(repository)
     # CircleCI API requires url-encoded branch
-    branch = urllib.parse.quote(branch)
+    branch = urllib.parse.quote_plus(branch)
     url = CIRCLE_API + f"/project/github/{repository}/tree"
     url += f"/{branch}?circle-token={circle_token}&filter={status}"
     response = requests.get(url)

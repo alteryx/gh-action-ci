@@ -34,7 +34,7 @@ def test_recent_commit():
 
 
 def test_workflow_failure(circle_token):
-    workflow = latest_workflow(REPOSITORY, circle_token, status='failed')
+    workflow = latest_workflow(REPOSITORY, circle_token, status='wrong_filter')
     success = is_workflow_success(workflow)
     assert not success
 

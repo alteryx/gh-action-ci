@@ -22,10 +22,12 @@ def latest_workflow(repository, circle_token="", status="completed",
                     branch="main"):
     url = CIRCLE_API + f"/project/github/{repository}/tree"
     url += f"/{branch}?circle-token={circle_token}&filter={status}"
+    print(url)
     response = requests.get(url)
     info = "%s (%s)" % (response.reason, response.status_code)
     assert response.status_code == 200, info
     integration_tests = response.json()
+    print(integration_tests)
     assert integration_tests, "no integration tests found"
     keys = ["workflow_id", "workflow_name", "job_name"]
 

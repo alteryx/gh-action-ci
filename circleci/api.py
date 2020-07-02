@@ -17,7 +17,8 @@ def latest_commit(repository, branch=None):
     return commit
 
 
-def latest_workflow(repository, circle_token="", status="completed", branch="main"):
+def latest_workflow(repository, circle_token="", status="completed",
+                    branch="main"):
     url = CIRCLE_API + "/project/github/{0}/tree"
     url += "/{4}?circle-token={1}&filter={2}"
     url = url.format(repository, circle_token, status, branch)

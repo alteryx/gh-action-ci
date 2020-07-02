@@ -3,6 +3,6 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: busybox:latest
     steps:
       - run: echo success

@@ -33,7 +33,7 @@ This will check whether the latest workflow completed successfully in CircleCI.
 |--------------|----------|----------------------------------------------------------------------------------------|
 | repository   | yes      | The repository to check for a sucessful workflow status.                               |
 | circle-token | yes      | A personal API token to access the CircleCI API.                                       |
-| branch       | no       | The branch to check aganist. If none is specified, uses default branch for repository. |
+| branch       | no       | The branch to check against. If none is specified, uses default branch for repository. |
 
 The returned value is a string data type that will either be `True` or `False`.
 
@@ -47,7 +47,7 @@ This will check whether the latest commit happened recently in GitHub. The lates
 |------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | repository | yes      | The public repository to check for a recent commit.                                                                                                                |
 | recent     | yes      | The period used to define whether a commit happened recently. The time value must be in a key-value pair format (i.e. `weeks=1, days=1, hours=1, minutes=1`, etc.) |
-| branch     | no       | The branch to check aganist. If none is specified, uses default branch for repository.                                                                             |
+| branch     | no       | The branch to check against. If none is specified, uses default branch for repository.                                                                             |
 
 The returned value is a string data type that will either be `True` or `False`.
 
@@ -61,7 +61,7 @@ This will trigger a project build in CircleCI.
 |--------------|----------|------------------------------------------------------------------------------------------------------|
 | repository   | yes      | The repository to build.                                                                             |
 | circle-token | yes      | A personal API token to access the CircleCI API.                                                     |
-| branch       | no       | The branch to check aganist. If none is specified, uses default branch for repository.               |
+| branch       | no       | The branch to check against. If none is specified, uses default branch for repository.               |
 
 The returned value is a string data type. If the project build was triggered, the value will be `True`, otherwise `False`.
 

@@ -3,6 +3,6 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: circleci/purposeful_workflow_failure:2.4.1
     steps:
       - run: echo success

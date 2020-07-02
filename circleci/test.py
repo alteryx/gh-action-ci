@@ -1,6 +1,6 @@
 import pytest
 
-from . import latest_commit, latest_workflow, project_build
+from . import default_branch, latest_commit, latest_workflow, project_build
 from .utils import is_recent_commit, is_workflow_success
 
 REPOSITORY = "FeatureLabs/gh-action-circleci"
@@ -56,3 +56,8 @@ def test_workflow_success(circle_token, branch):
                                branch=branch)
     success = is_workflow_success(workflow)
     assert success
+
+
+def test_default_branch():
+    branch = default_branch(REPOSITORY)
+    assert branch == "main"

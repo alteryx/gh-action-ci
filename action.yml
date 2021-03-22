@@ -1,5 +1,5 @@
-name: "GitHub Action - CircleCI"
-description: "A GitHub Action for integrating CircleCI."
+name: "GitHub Action - CI"
+description: "A GitHub Action integrated with CircleCI and GitHub."
 inputs:
   task:
     description: "The name of a task to run."
@@ -10,8 +10,8 @@ inputs:
   recent:
     description: "A time delta to use for time comparisons."
     required: false
-  circle-token:
-    description: "A personal API token to access the CircleCI API."
+  token:
+    description: "A token to use the CI provider's API."
     required: false
     default: ""
 runs:
@@ -22,5 +22,5 @@ runs:
     - ${{ inputs.repository }}
     - --recent
     - ${{ inputs.recent }}
-    - --circle-token
-    - ${{ inputs.circle-token }}
+    - --token
+    - ${{ inputs.token }}

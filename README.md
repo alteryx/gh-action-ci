@@ -1,14 +1,14 @@
-# GitHub Action - CircleCI
+# GitHub Action - CI
 
-A GitHub Action for integrating CircleCI.
+A GitHub Action integrated with the GitHub REST API and CircleCI.
 
 ## Usage
 
-This GitHub Action provides tasks that interface with CircleCI. These tasks can be used to build workflows. In a workflow step, the `task` parameter must reference the name of a task. This is followed by any parameters for the task.
+This GitHub Action provides tasks that interface with the GitHub REST API. You can use these tasks to build workflows. In a workflow step, the task parameter must reference the task name, followed by any parameters.
 
 ```yaml
 steps:
-  - uses: featurelabs/gh-action-circleci@v2
+  - uses: featurelabs/gh-action-github@v1
     id: <step id>
     with:
       task: <task name>
@@ -25,45 +25,44 @@ steps.<step id>.outputs.value
 
 This is a list of the available tasks:
 
-### `is_workflow_success`
-
-This will check whether the latest workflow completed successfully in CircleCI.
-
-| Parameters   | Required | Description                                                                            |
-|--------------|----------|----------------------------------------------------------------------------------------|
-| repository   | yes      | The repository to check for a sucessful workflow status.                               |
-| circle-token | yes      | A personal API token to access the CircleCI API.                                       |
-| branch       | no       | The branch to check against. If none is specified, uses default branch for repository. |
-
-The returned value is a string data type that will either be `True` or `False`.
-
-<hr>
-
 ### `is_recent_commit`
 
-This will check whether the latest commit happened recently in GitHub. The latest commit will be used from the default branch of a public repository.
+Check whether the latest commit happened recently.
 
-| Parameters | Required | Description                                                                                                                                                        |
-|------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| repository | yes      | The public repository to check for a recent commit.                                                                                                                |
-| recent     | yes      | The period used to define whether a commit happened recently. The time value must be in a key-value pair format (i.e. `weeks=1, days=1, hours=1, minutes=1`, etc.) |
-| branch     | no       | The branch to check against. If none is specified, uses default branch for repository.                                                                             |
+| Parameter | Description | Required |
+|:---------:|-------------|:--------:|
+| `repository` | The name of the public repository that contains the commit. | Yes |
+| `branch` | The name of branch that contains the commit. The default value is the default branch of the repository. | No |
+| `recent` | The period used to define whether a commit happened recently. The time value must be in a key-value pair format (i.e. `weeks=1, days=1, hours=1, minutes=1`, etc.) The default value is seven days. | No |
 
 The returned value is a string data type that will either be `True` or `False`.
 
 <hr>
 
-### `project_build`
+### `is_workflow_success`
 
-This will trigger a project build in CircleCI.
+Check whether the latest workflow completed successfully.
 
-| Parameters   | Required | Description                                                                                          |
-|--------------|----------|------------------------------------------------------------------------------------------------------|
-| repository   | yes      | The repository to build.                                                                             |
-| circle-token | yes      | A personal API token to access the CircleCI API.                                                     |
-| branch       | no       | The branch to check against. If none is specified, uses default branch for repository.               |
+| Parameter | Description | Required |
+|:---------:|-------------|:--------:|
+| `repository` | The name of the public repository that contains the workflow. | Yes |
+| `workflow` | The name of the workflow to check for a successful status. | Yes |
 
-The returned value is a string data type. If the project build was triggered, the value will be `True`, otherwise `False`.
+The returned value is a string data type that will either be `True` or `False`.
+
+<hr>
+
+### `run_workflow`
+
+Create a dispatch event to run a workflow.
+
+| Parameter | Description | Required |
+|:---------:|-------------|:--------:|
+| `repository` | The name of the repository that contains the workflow. | Yes |
+| `workflow` | The file name of the workflow to dispatch. | Yes |
+| `token` | The personal access token (PAT) with repo-scoped access. | Yes |
+
+The returned value is a string data type. If the workflow was dispatched to run, the value will be `True`, otherwise `False`.
 
 <br>
 

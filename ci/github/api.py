@@ -37,7 +37,7 @@ def is_recent_commit(commit, recent):
     return recent
 
 
-def latest_commit(repository, branch='main'):
+def latest_commit(repository, branch=None):
     url = f"{REST_API}/repos/{repository}/commits"
     branch = {"sha": branch or default_branch(repository)}
     response = check_status(get(url, params=branch), code=200)
@@ -45,15 +45,17 @@ def latest_commit(repository, branch='main'):
     return commit
 
 
-def is_workflow_success(repository, name=None, status='completed'):
+def is_workflow_success(repository, name=None, branch=None, status='completed'):
+    branch = branch or default_branch(repository)
     url = f"{REST_API}/repos/{repository}/actions/runs"
     response = check_status(get(url), code=200).json()
     named = name is not None
 
     for run in response['workflow_runs']:
+        not_branch = branch != run['head_branch']
         not_name = named and name != run['name']
         not_status = status != run['status']
-        if not_name or not_status:
+        if not_branch or not_name or not_status:
             continue
         return run['conclusion'] == 'success'
 

@@ -43,5 +43,5 @@ def test_default_branch():
     assert gh.default_branch(REPO) == 'main'
 
 
-def test_workflow_success(token, branch):
+def test_workflow_success(token):
     assert gh.is_workflow_success(REPO)

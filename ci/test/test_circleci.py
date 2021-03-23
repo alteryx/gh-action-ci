@@ -12,16 +12,20 @@ def token(pytestconfig):
 
 @mark.parametrize('branch', [(None), ('main'), ('v1')])
 def test_run_workflow(token, branch):
-    assert circleci.run_workflow(REPO, token, branch=branch)
+    assert circleci.run_workflow(
+        repository=REPO,
+        branch=branch,
+        token=token,
+    )
 
 
 @mark.parametrize('branch', [(None), ('main'), ('failed_workflow')])
 def test_workflow_failure(token, branch):
     success = circleci.is_workflow_success(
-        REPO,
-        token,
+        repository=REPO,
         status='failed',
         branch=branch,
+        token=token,
     )
     assert not success
 
@@ -29,9 +33,10 @@ def test_workflow_failure(token, branch):
 @mark.parametrize('branch', [(None), ('main'), ('v1')])
 def test_workflow_success(token, branch):
     success = circleci.is_workflow_success(
-        REPO,
-        token,
+        repository=REPO,
+        workflow_name='workflow',
         status='successful',
         branch=branch,
+        token=token,
     )
     assert success

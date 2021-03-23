@@ -9,7 +9,7 @@ from ..utils import check_status
 REST_API = "https://circleci.com/api/v1.1"
 
 
-def is_workflow_success(repository, token='', branch='main', status='completed'):
+def is_workflow_success(repository, branch='main', workflow_name=None, status='completed', token=''):
     # CircleCI API requires url-encoded branch
     branch = quote_plus(branch or default_branch(repository))
     url = f"{REST_API}/project/github/{repository}/tree"
@@ -17,21 +17,24 @@ def is_workflow_success(repository, token='', branch='main', status='completed')
     tests = check_status(get(url), code=200).json()
     assert tests, "no integration tests found"
 
-    records = [{
+    df = pd.DataFrame({
         'workflow_id': test['workflows']['workflow_id'],
         'workflow_name': test['workflows']['workflow_name'],
         'job_name': test['workflows']['job_name'],
         'status': test['status'],
-    } for test in tests]
+    } for test in tests)
 
-    df, key = pd.DataFrame(records), "workflow_id"
-    workflows = df.groupby(key, sort=False)
-    group = workflows.get_group(df[key][0])
+    if workflow_name is not None:
+        df = df[df.workflow_name.eq(workflow_name)]
+
+    workflows = df.groupby("workflow_id", sort=False)
+    latest_workflow = df["workflow_id"][0]
+    group = workflows.get_group(latest_workflow)
     success = group.status.eq('success').all()
     return success
 
 
-def run_workflow(repository, token='', branch=None):
+def run_workflow(repository, token, branch=None):
     # CircleCI API requires url-encoded branch
     branch = {"branch": quote_plus(branch or default_branch(repository))}
     url = f"{REST_API}/project/github/{repository}/build?circle-token={token}"

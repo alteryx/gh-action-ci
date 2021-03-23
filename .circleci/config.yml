@@ -6,3 +6,9 @@ jobs:
       - image: busybox:latest
     steps:
       - run: echo success
+
+workflows:
+  version: 2
+  Tests:
+    jobs:
+      - build

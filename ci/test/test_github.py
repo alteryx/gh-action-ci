@@ -2,7 +2,7 @@ from pytest import fixture
 
 from ci import github as gh
 
-REPO = "featurelabs/gh-action"
+REPO = "FeatureLabs/gh-action-circleci"
 
 
 @fixture()
@@ -16,10 +16,10 @@ def test_latest_commit():
 
 
 def test_latest_commit_branch():
-    commit = gh.latest_commit("featurelabs/featuretools", branch="v0.1.10")
+    commit = gh.latest_commit(REPO, branch="failed_workflow")
     assert "tree" in commit and "sha" in commit["tree"]
-    assert commit["tree"]["sha"] == "ff46c8939833d022809d11694409eb1c0a18653f"
-    assert "ace8d51435fe484476182e908c1ecf9515ec4918" in commit["url"]
+    assert commit["tree"]["sha"] == "cc5a32630a78f4ec3ef70f906c14a301aaf975cf"
+    assert "d82a1c8151b01f51d7d9ceb39a0294feedbbc668" in commit["url"]
 
 
 def test_not_recent_commit():
@@ -28,13 +28,13 @@ def test_not_recent_commit():
     assert not recent
 
 
-def test_workflow_dispatch(token):
-    repo = "featurelabs/featuretools-tsfresh-primitives"
+def test_run_workflow(token):
+    repo = "alteryx/featuretools-tsfresh-primitives"
     assert gh.run_workflow(repo, 'tests.yml', token)
 
 
 def test_recent_commit():
-    commit = gh.latest_commit("featurelabs/featuretools")
+    commit = gh.latest_commit("alteryx/featuretools")
     recent = gh.is_recent_commit(commit, recent="weeks=100000000")
     assert recent
 

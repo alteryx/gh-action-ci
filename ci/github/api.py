@@ -45,7 +45,7 @@ def latest_commit(repository, branch='main'):
     return commit
 
 
-def is_workflow_succes(repository, name=None, status='completed'):
+def is_workflow_success(repository, name=None, status='completed'):
     url = f"{REST_API}/repos/{repository}/actions/runs"
     response = check_status(get(url), code=200).json()
     named = name is not None

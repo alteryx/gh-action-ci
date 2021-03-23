@@ -1,2 +1,2 @@
 # flake8:noqa
-from .api import latest_workflow, run_workflow
+from .api import is_workflow_success, run_workflow

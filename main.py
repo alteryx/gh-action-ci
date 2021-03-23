@@ -9,6 +9,7 @@ def main():
     task.add_argument('--recent', default='days=30')
     task.add_argument('--token')
     task.add_argument('--branch', default=None)
+    task.add_argument('--ci', default='github')
     task = task.parse_args()
 
     if task.name == 'is_workflow_success':

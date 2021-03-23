@@ -1,6 +1,6 @@
 FROM python:3.7
 
-ADD circleci circleci
+ADD ci ci
 ADD requirements.txt requirements.txt
 ADD main.py main.py
 

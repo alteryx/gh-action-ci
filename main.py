@@ -12,7 +12,7 @@ def main():
     task = task.parse_args()
 
     if task.name == 'is_workflow_success':
-        if task.ci == 'circleci':
+        if task.ci.lower() == 'circleci':
             value = circleci.is_workflow_success(
                 repository=task.repository,
                 token=task.token,
@@ -20,7 +20,7 @@ def main():
             )
             print(f"::set-output name=value::{value}")
 
-        elif task.ci == 'github':
+        elif task.ci.lower() == 'github':
             value = github.is_workflow_success(
                 repository=task.repository,
                 name=task.workflow,
@@ -34,7 +34,7 @@ def main():
         print(f"::set-output name=value::{recent}")
 
     elif task.name == 'run_workflow':
-        if task.ci == 'circleci':
+        if task.ci.lower() == 'circleci':
             value = circleci.run_workflow(
                 repository=task.repository,
                 token=task.token,
@@ -42,7 +42,7 @@ def main():
             )
             print(f"::set-output name=value::{value}")
 
-        elif task.ci == 'github':
+        elif task.ci.lower() == 'github':
             value = github.run_workflow(
                 repository=task.repository,
                 workflow=task.workflow,

@@ -8,12 +8,16 @@ inputs:
     description: "The GitHub repository to use."
     required: true
   recent:
-    description: "A time delta to use for time comparisons."
+    description: "A time delta for time comparisons."
     required: false
   token:
-    description: "A token to use the CI provider's API."
+    description: "The token to access the CI provider's API."
     required: false
     default: ""
+  ci:
+    description: "The CI provider to process the task."
+    required: false
+    default: "github"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -24,3 +28,5 @@ runs:
     - ${{ inputs.recent }}
     - --token
     - ${{ inputs.token }}
+    - --ci
+    - ${{ inputs.ci }}

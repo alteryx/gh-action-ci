@@ -14,7 +14,8 @@ jobs:
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
-          circle-token: ${{ secrets.CIRCLE_TOKEN }}
+          token: ${{ secrets.CIRCLE_TOKEN }}
+          ci: circleci
 
       - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
@@ -22,13 +23,14 @@ jobs:
         id: is_recent_commit
         with:
           task: is_recent_commit
-          repository: featurelabs/featuretools
+          repository: alteryx/featuretools
           recent: days=7
 
       - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build in CircleCI.
         uses: ./
         with:
-          task: project_build
+          task: run_workflow
           repository: ${{ github.repository }}
-          circle-token: ${{ secrets.CIRCLE_TOKEN }}
+          token: ${{ secrets.CIRCLE_TOKEN }}
+          ci: circleci

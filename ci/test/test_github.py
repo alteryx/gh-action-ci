@@ -41,3 +41,7 @@ def test_recent_commit():
 
 def test_default_branch():
     assert gh.default_branch(REPO) == 'main'
+
+
+def test_workflow_success(token, branch):
+    assert gh.is_workflow_success(REPO)

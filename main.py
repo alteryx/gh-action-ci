@@ -12,8 +12,9 @@ def main():
     task.add_argument('--ci', default='github')
     task = task.parse_args()
 
+    ci = task.ci.lower()
     if task.name == 'is_workflow_success':
-        if task.ci.lower() == 'circleci':
+        if ci == 'circleci':
             value = circleci.is_workflow_success(
                 repository=task.repository,
                 branch=task.branch,
@@ -21,7 +22,7 @@ def main():
             )
             print(f"::set-output name=value::{value}")
 
-        elif task.ci.lower() == 'github':
+        elif ci == 'github':
             value = github.is_workflow_success(
                 repository=task.repository,
                 workflow_name=task.workflow,
@@ -35,7 +36,7 @@ def main():
         print(f"::set-output name=value::{recent}")
 
     elif task.name == 'run_workflow':
-        if task.ci.lower() == 'circleci':
+        if ci == 'circleci':
             value = circleci.run_workflow(
                 repository=task.repository,
                 branch=task.branch,
@@ -43,7 +44,7 @@ def main():
             )
             print(f"::set-output name=value::{value}")
 
-        elif task.ci.lower() == 'github':
+        elif ci == 'github':
             value = github.run_workflow(
                 repository=task.repository,
                 workflow=task.workflow,

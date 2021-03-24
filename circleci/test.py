@@ -17,10 +17,10 @@ def test_latest_commit():
 
 
 def test_latest_commit_branch():
-    commit = latest_commit("FeatureLabs/featuretools", branch="v0.1.10")
+    commit = gh.latest_commit(repository=REPOSITORY, branch="failed_workflow")
     assert "tree" in commit and "sha" in commit["tree"]
-    assert commit["tree"]["sha"] == "ff46c8939833d022809d11694409eb1c0a18653f"
-    assert "ace8d51435fe484476182e908c1ecf9515ec4918" in commit["url"]
+    assert commit["tree"]["sha"] == "cc5a32630a78f4ec3ef70f906c14a301aaf975cf"
+    assert "d82a1c8151b01f51d7d9ceb39a0294feedbbc668" in commit["url"]
 
 
 def test_not_recent_commit():

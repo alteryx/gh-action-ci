@@ -8,7 +8,7 @@ This GitHub Action provides tasks that interface with the GitHub and CircleCI AP
 
 ```yaml
 steps:
-  - uses: featurelabs/gh-action-github@v1
+  - uses: featurelabs/gh-action-ci@v3
     id: <step id>
     with:
       task: <task name>

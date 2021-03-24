@@ -47,5 +47,5 @@ def test_workflow_success():
     assert gh.is_workflow_success(
         workflow='Test Suite',
         repository=REPO,
-        branch='is_workflow_sucess',
+        branch='is_workflow_success',
     )

@@ -47,6 +47,8 @@ Check whether the latest workflow completed successfully.
 |:---------:|-------------|:--------:|
 | `repository` | The name of the public repository that contains the workflow. | Yes |
 | `workflow` | The name of the workflow to check for a successful status. | Yes |
+| `token` | The token for making authorized requests to the CI provider's REST API. Only required for private repositories. | No |
+| `ci` | The CI Provider for the task. The default value is `github` | No |
 
 The returned value is a string data type that will either be `True` or `False`.
 
@@ -59,14 +61,15 @@ Create a dispatch event to run a workflow.
 | Parameter | Description | Required |
 |:---------:|-------------|:--------:|
 | `repository` | The name of the repository that contains the workflow. | Yes |
-| `workflow` | The file name of the workflow to dispatch. | Yes |
-| `token` | The personal access token (PAT) with repo-scoped access. | Yes |
+| `workflow` | The file name of the workflow to dispatch. Only required for GitHub. | No |
+| `token` | The token for making authorized requests to the CI provider's REST API. This can be a personal access token (PAT) with repo-scoped access for GitHub. | Yes |
+| `ci` | The CI Provider for the task. The default value is `github` | No |
 
 The returned value is a string data type. If the workflow was dispatched to run, the value will be `True`, otherwise `False`.
 
 <br>
 
-## Example - CircleCI Scheduler Workflow
+## Example - CircleCI Scheduler
 
 This workflow uses the tasks to schedule project builds in CircleCI on recent commits to Featuretools.
 
@@ -89,8 +92,8 @@ jobs:
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
-          circle-token: ${{ secrets.CIRCLE_TOKEN }}
-          branch: main
+          token: ${{ secrets.CIRCLE_TOKEN }}
+          ci: circleci
 
       - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
@@ -98,16 +101,17 @@ jobs:
         id: is_recent_commit
         with:
           task: is_recent_commit
-          repository: featurelabs/featuretools
+          repository: alteryx/featuretools
           recent: days=7
 
       - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build in CircleCI.
         uses: featurelabs/gh-action-circleci@v2
         with:
-          task: project_build
+          task: run_workflow
           repository: ${{ github.repository }}
-          circle-token: ${{ secrets.CIRCLE_TOKEN }}
+          token: ${{ secrets.CIRCLE_TOKEN }}
+          ci: circleci
 ```
 
 To install this workflow, add the file above to the following location in your repository.

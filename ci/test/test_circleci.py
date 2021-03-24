@@ -1,6 +1,6 @@
 from pytest import fixture, mark
 
-from ci import circleci
+from .. import circleci
 
 REPO = 'FeatureLabs/gh-action-circleci'
 
@@ -34,7 +34,7 @@ def test_workflow_failure(token, branch):
 def test_workflow_success(token, branch):
     success = circleci.is_workflow_success(
         repository=REPO,
-        workflow_name='workflow',
+        workflow='workflow',
         status='successful',
         branch=branch,
         token=token,

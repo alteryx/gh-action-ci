@@ -45,15 +45,15 @@ def latest_commit(repository, branch=None):
     return commit
 
 
-def is_workflow_success(repository, branch=None, workflow_name=None, status='completed'):
+def is_workflow_success(repository, branch=None, workflow=None, status='completed'):
     branch = branch or default_branch(repository)
     url = f"{REST_API}/repos/{repository}/actions/runs"
     response = check_status(get(url), code=200).json()
-    named = workflow_name is not None
+    named = workflow is not None
 
     for run in response['workflow_runs']:
         not_branch = branch != run['head_branch']
-        not_name = named and workflow_name != run['name']
+        not_name = named and workflow != run['name']
         not_status = status != run['status']
         if not_branch or not_name or not_status: continue
         return run['conclusion'] == 'success'

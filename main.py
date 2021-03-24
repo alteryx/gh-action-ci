@@ -25,7 +25,7 @@ def main():
         elif ci == 'github':
             value = github.is_workflow_success(
                 repository=task.repository,
-                workflow_name=task.workflow,
+                workflow=task.workflow,
                 branch=task.branch,
             )
             print(f"::set-output name=value::{value}")

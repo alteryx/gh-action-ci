@@ -9,13 +9,13 @@ from ..utils import check_status
 REST_API = "https://circleci.com/api/v1.1"
 
 
-def is_workflow_success(repository, branch='main', workflow_name=None, status='completed', token=''):
+def is_workflow_success(repository, branch='main', workflow=None, status='completed', token=''):
     # CircleCI API requires url-encoded branch
     branch = quote_plus(branch or default_branch(repository))
     url = f"{REST_API}/project/github/{repository}/tree"
     url += f"/{branch}?circle-token={token}&filter={status}"
     tests = check_status(get(url), code=200).json()
-    assert tests, "no integration tests found"
+    if not tests: return
 
     df = pd.DataFrame({
         'workflow_id': test['workflows']['workflow_id'],
@@ -24,8 +24,9 @@ def is_workflow_success(repository, branch='main', workflow_name=None, status='c
         'status': test['status'],
     } for test in tests)
 
-    if workflow_name is not None:
-        df = df[df.workflow_name.eq(workflow_name)]
+    if workflow is not None:
+        df = df[df.workflow_name.eq(workflow)]
+        if df.empty: return
 
     workflows = df.groupby("workflow_id", sort=False)
     latest_workflow = df["workflow_id"][0]

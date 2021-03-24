@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from ci import github as gh
+from .. import github as gh
 
 REPO = "FeatureLabs/gh-action-circleci"
 
@@ -45,7 +45,7 @@ def test_default_branch():
 
 def test_workflow_success(token):
     assert gh.is_workflow_success(
-        workflow_name='Test Suite',
+        workflow='Test Suite',
         repository=REPO,
         branch='main',
     )

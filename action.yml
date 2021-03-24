@@ -11,7 +11,7 @@ inputs:
     description: "A time delta for time comparisons."
     required: false
   token:
-    description: "The token to access the CI provider's API."
+    description: "The token for making authorized requests to the CI provider's REST API."
     required: false
     default: ""
   ci:

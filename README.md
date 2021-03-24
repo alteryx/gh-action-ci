@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check for successful workflow status in CircleCI.
-        uses: featurelabs/gh-action-circleci@v2
+        uses: featurelabs/gh-action-ci@v3
         id: is_workflow_success
         with:
           task: is_workflow_success
@@ -97,7 +97,7 @@ jobs:
 
       - if: contains(steps.is_workflow_success.outputs.value, 'True')
         name: Check for recent commit to Featuretools.
-        uses: featurelabs/gh-action-circleci@v2
+        uses: featurelabs/gh-action-ci@v3
         id: is_recent_commit
         with:
           task: is_recent_commit
@@ -106,7 +106,7 @@ jobs:
 
       - if: contains(steps.is_recent_commit.outputs.value, 'True')
         name: Trigger project build in CircleCI.
-        uses: featurelabs/gh-action-circleci@v2
+        uses: featurelabs/gh-action-ci@v3
         with:
           task: run_workflow
           repository: ${{ github.repository }}

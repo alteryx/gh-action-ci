@@ -1,10 +1,10 @@
 # GitHub Action - CI
 
-A GitHub Action integrated with the GitHub REST API and CircleCI.
+A GitHub Action integrated with the GitHub and CircleCI API.
 
 ## Usage
 
-This GitHub Action provides tasks that interface with the GitHub REST API. You can use these tasks to build workflows. In a workflow step, the task parameter must reference the task name, followed by any parameters.
+This GitHub Action provides tasks that interface with the GitHub and CircleCI API. You can use these tasks to build workflows. In a workflow step, the task parameter must reference the task name, followed by any parameters.
 
 ```yaml
 steps:

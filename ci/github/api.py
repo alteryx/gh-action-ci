@@ -58,7 +58,9 @@ def is_workflow_success(repository, branch=None, workflow=None, status='complete
         if not_branch or not_name or not_status: continue
         return run['conclusion'] == 'success'
 
-    raise ValueError('no workflows found')
+    info = 'no workflows found'
+    if named: info += f'for "{workflow}"'
+    raise ValueError(info)
 
 
 def run_workflow(repository, workflow, token, branch='main'):

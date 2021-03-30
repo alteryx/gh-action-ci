@@ -1,6 +1,6 @@
 on: push
 
-name: Test CI
+name: Test GitHub CI
 jobs:
   Featuretools:
     runs-on: ubuntu-latest

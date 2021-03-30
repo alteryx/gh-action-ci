@@ -124,3 +124,7 @@ To install this workflow, add the file above to the following location in your r
 ```
 
 Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
+
+### Testing & Development
+
+We are no longer testing the integration with CircleCI.

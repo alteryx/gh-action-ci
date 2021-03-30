@@ -6,10 +6,11 @@ def main():
     task = ArgumentParser()
     task.add_argument('name')
     task.add_argument('repository')
-    task.add_argument('--recent', default='days=30')
-    task.add_argument('--token')
     task.add_argument('--branch', default=None)
+    task.add_argument('--workflow', default=None)
+    task.add_argument('--recent', default='days=30')
     task.add_argument('--ci', default='github')
+    task.add_argument('--token')
     task = task.parse_args()
 
     ci = task.ci.lower()

@@ -19,6 +19,7 @@ def main():
             value = circleci.is_workflow_success(
                 repository=task.repository,
                 branch=task.branch,
+                workflow=task.workflow,
                 token=task.token,
             )
             print(f"::set-output name=value::{value}")
@@ -26,8 +27,8 @@ def main():
         elif ci == 'github':
             value = github.is_workflow_success(
                 repository=task.repository,
-                workflow=task.workflow,
                 branch=task.branch,
+                workflow=task.workflow,
             )
             print(f"::set-output name=value::{value}")
 

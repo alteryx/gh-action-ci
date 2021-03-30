@@ -9,7 +9,7 @@ from ..utils import check_status
 REST_API = "https://circleci.com/api/v1.1"
 
 
-def is_workflow_success(repository, branch='main', workflow=None, status='completed', token=''):
+def is_workflow_success(repository, branch=None, workflow=None, status='completed', token=''):
     # CircleCI API requires url-encoded branch
     branch = quote_plus(branch or default_branch(repository))
     url = f"{REST_API}/project/github/{repository}/tree"

@@ -58,6 +58,8 @@ def is_workflow_success(repository, branch=None, workflow=None, status='complete
         if not_branch or not_name or not_status: continue
         return run['conclusion'] == 'success'
 
+    raise ValueError('no workflows found')
+
 
 def run_workflow(repository, workflow, token, branch='main'):
     url = f"{REST_API}/repos/{repository}/actions/workflows/{workflow}/dispatches"

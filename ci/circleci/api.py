@@ -14,19 +14,19 @@ def is_workflow_success(repository, branch='main', workflow=None, status='comple
     branch = quote_plus(branch or default_branch(repository))
     url = f"{REST_API}/project/github/{repository}/tree"
     url += f"/{branch}?circle-token={token}&filter={status}"
-    tests = check_status(get(url), code=200).json()
-    if not tests: return
+    project_builds = check_status(get(url), code=200).json()
+    if not project_builds: raise ValueError('no project builds were found')
 
     df = pd.DataFrame({
-        'workflow_id': test['workflows']['workflow_id'],
-        'workflow_name': test['workflows']['workflow_name'],
-        'job_name': test['workflows']['job_name'],
-        'status': test['status'],
-    } for test in tests)
+        'workflow_id': build['workflows']['workflow_id'],
+        'workflow_name': build['workflows']['workflow_name'],
+        'job_name': build['workflows']['job_name'],
+        'status': build['status'],
+    } for build in project_builds)
 
     if workflow is not None:
         df = df[df.workflow_name.eq(workflow)]
-        if df.empty: return
+        if df.empty: raise ValueError(f'no workflows were found for "{workflow}"')
 
     workflows = df.groupby("workflow_id", sort=False)
     latest_workflow = df["workflow_id"][0]

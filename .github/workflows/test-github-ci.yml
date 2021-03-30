@@ -2,7 +2,7 @@ on: push
 
 name: Test GitHub CI
 jobs:
-  Featuretools:
+  Tasks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub Action.

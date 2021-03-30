@@ -46,6 +46,7 @@ Check whether the latest workflow completed successfully.
 | Parameter | Description | Required |
 |:---------:|-------------|:--------:|
 | `repository` | The name of the public repository that contains the workflow. | Yes |
+| `branch` | The name of branch that contains the workflow. The default value is the default branch of the repository. | No |
 | `workflow` | The name of the workflow to check for a successful status. | Yes |
 | `token` | The token for making authorized requests to the CI provider's REST API. Only required for private repositories. | No |
 | `ci` | The CI Provider for the task. The default value is `github` | No |

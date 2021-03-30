@@ -24,7 +24,7 @@ def is_workflow_success(repository, branch=None, workflow=None, status='complete
         'status': build['status'],
     } for build in project_builds)
 
-    if workflow is not None:
+    if workflow:
         df = df[df.workflow_name.eq(workflow)]
         if df.empty: raise ValueError(f'no workflow found for "{workflow}"')
 

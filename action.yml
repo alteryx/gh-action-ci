@@ -7,6 +7,9 @@ inputs:
   repository:
     description: "The GitHub repository to use."
     required: true
+  workflow:
+    description: "The name of a workflow."
+    required: false
   recent:
     description: "A time delta for time comparisons."
     required: false
@@ -24,6 +27,8 @@ runs:
   args:
     - ${{ inputs.task }}
     - ${{ inputs.repository }}
+    - --workflow
+    - ${{ inputs.workflow }}
     - --recent
     - ${{ inputs.recent }}
     - --token

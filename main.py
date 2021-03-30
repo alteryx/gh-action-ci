@@ -6,10 +6,11 @@ def main():
     task = ArgumentParser()
     task.add_argument('name')
     task.add_argument('repository')
-    task.add_argument('--recent', default='days=30')
-    task.add_argument('--token')
     task.add_argument('--branch', default=None)
+    task.add_argument('--workflow', default=None)
+    task.add_argument('--recent', default='days=30')
     task.add_argument('--ci', default='github')
+    task.add_argument('--token')
     task = task.parse_args()
 
     ci = task.ci.lower()
@@ -18,6 +19,7 @@ def main():
             value = circleci.is_workflow_success(
                 repository=task.repository,
                 branch=task.branch,
+                workflow=task.workflow,
                 token=task.token,
             )
             print(f"::set-output name=value::{value}")
@@ -25,8 +27,8 @@ def main():
         elif ci == 'github':
             value = github.is_workflow_success(
                 repository=task.repository,
-                workflow=task.workflow,
                 branch=task.branch,
+                workflow=task.workflow,
             )
             print(f"::set-output name=value::{value}")
 

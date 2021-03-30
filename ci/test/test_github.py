@@ -1,4 +1,4 @@
-from pytest import fixture
+from pytest import fixture, raises
 
 from .. import github as gh
 
@@ -49,3 +49,12 @@ def test_workflow_success():
         repository=REPO,
         branch='is_workflow_success',
     )
+
+
+def test_workflow_not_found():
+    match = 'no workflow found for "unknown"'
+    with raises(ValueError, match=match):
+        gh.is_workflow_success(
+            workflow='unknown',
+            repository=REPO,
+        )

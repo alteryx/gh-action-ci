@@ -1,0 +1,30 @@
+on: push
+
+name: Test CI
+jobs:
+  Featuretools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Action.
+        uses: actions/checkout@v2
+
+      - name: Check for successful workflow status.
+        uses: ./
+        id: is_workflow_success
+        with:
+          task: is_workflow_success
+          repository: ${{ github.repository }}
+          token: ${{ secrets.REPO_SCOPED_TOKEN }}
+          ci: github
+
+      - name: Check workflow status
+        run: |
+          echo "is_workflow_success: ${{ steps.is_workflow_success.outputs.value }}"
+
+      - name: Check for recent commit to Featuretools.
+        uses: ./
+        id: is_recent_commit
+        with:
+          task: is_recent_commit
+          repository: alteryx/featuretools
+          recent: weeks=1000

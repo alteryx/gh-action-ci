@@ -14,7 +14,6 @@ jobs:
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
-          branch: is_workflow_success
           workflow: Test Suite
           ci: github
 

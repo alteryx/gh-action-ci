@@ -47,7 +47,7 @@ def latest_commit(repository, branch=None):
 
 def is_workflow_success(repository, branch=None, workflow=None, status='completed'):
     branch = branch or default_branch(repository)
-    url = f"{REST_API}/repos/{repository}/actions/runs"
+    url = f"{REST_API}/repos/{repository}/actions/runs?per_page=100"
     response = check_status(get(url), code=200).json()
 
     for run in response['workflow_runs']:

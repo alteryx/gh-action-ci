@@ -26,7 +26,7 @@ def is_workflow_success(repository, branch='main', workflow=None, status='comple
 
     if workflow is not None:
         df = df[df.workflow_name.eq(workflow)]
-        if df.empty: raise ValueError(f'no workflows were found for "{workflow}"')
+        if df.empty: raise ValueError(f'no workflow found for "{workflow}"')
 
     workflows = df.groupby("workflow_id", sort=False)
     latest_workflow = df["workflow_id"][0]

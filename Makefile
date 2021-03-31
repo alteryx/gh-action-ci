@@ -12,5 +12,4 @@ lint-tests:
 	isort --check-only --recursive ci
 
 unit-tests:
-	pytest ci/test --cov=ci --cache-clear --show-capture=stderr --disable-warnings -vv \
-	--circle-token ${CIRCLE_TOKEN} --github-token ${GITHUB_TOKEN}
+	pytest ci/test/test_github.py --cov=ci/github --cache-clear --show-capture=stderr --disable-warnings -vv --github-token ${GITHUB_TOKEN}

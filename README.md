@@ -2,6 +2,10 @@
 
 A GitHub Action integrated with the GitHub and CircleCI API.
 
+#### Testing & Development
+
+We are no longer testing the integration with CircleCI.
+
 ## Usage
 
 This GitHub Action provides tasks that interface with the GitHub and CircleCI API. You can use these tasks to build workflows. In a workflow step, the task parameter must reference the task name, followed by any parameters.
@@ -124,7 +128,3 @@ To install this workflow, add the file above to the following location in your r
 ```
 
 Then, add `CIRCLE_TOKEN` as a secret in your repository settings.
-
-### Testing & Development
-
-We are no longer testing the integration with CircleCI.

@@ -18,4 +18,4 @@ jobs:
         run: make lint-tests
       - if: always()
         name: Run Unit Tests
-        run: make CIRCLE_TOKEN=${{ secrets.CIRCLE_TOKEN }} unit-tests
+        run: make GITHUB_TOKEN=${{ secrets.REPO_SCOPED_TOKEN }} unit-tests

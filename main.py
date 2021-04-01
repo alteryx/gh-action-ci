@@ -1,4 +1,4 @@
-import circleci
+from ci import circleci, github
 from argparse import ArgumentParser
 
 
@@ -6,27 +6,54 @@ def main():
     task = ArgumentParser()
     task.add_argument('name')
     task.add_argument('repository')
+    task.add_argument('--branch', default="")
+    task.add_argument('--workflow', default="")
     task.add_argument('--recent', default='days=30')
-    task.add_argument('--circle-token')
-    task.add_argument('--branch', default=None)
+    task.add_argument('--ci', default='github')
+    task.add_argument('--token')
     task = task.parse_args()
 
+    ci = task.ci.lower()
     if task.name == 'is_workflow_success':
-        workflow = circleci.latest_workflow(task.repository, task.circle_token,
-                                            task.branch)
-        success = circleci.is_workflow_success(workflow)
-        print("::set-output name=value::%s" % success)
+        if ci == 'circleci':
+            value = circleci.is_workflow_success(
+                repository=task.repository,
+                branch=task.branch,
+                workflow=task.workflow,
+                token=task.token,
+            )
+            print(f"::set-output name=value::{value}")
+
+        elif ci == 'github':
+            value = github.is_workflow_success(
+                repository=task.repository,
+                branch=task.branch,
+                workflow=task.workflow,
+            )
+            print(f"::set-output name=value::{value}")
 
     elif task.name == 'is_recent_commit':
-        commit = circleci.latest_commit(task.repository, task.branch)
-        recent = circleci.is_recent_commit(commit, recent=task.recent)
-        print("::set-output name=value::%s" % recent)
+        commit = github.latest_commit(task.repository, task.branch)
+        recent = github.is_recent_commit(commit, recent=task.recent)
+        print(f"::set-output name=value::{recent}")
 
-    elif task.name == 'project_build':
-        response = circleci.project_build(task.repository, task.circle_token,
-                                          task.branch)
-        print("::set-output name=value::%s" % response == 'Build created')
-        print(response)
+    elif task.name == 'run_workflow':
+        if ci == 'circleci':
+            value = circleci.run_workflow(
+                repository=task.repository,
+                branch=task.branch,
+                token=task.token,
+            )
+            print(f"::set-output name=value::{value}")
+
+        elif ci == 'github':
+            value = github.run_workflow(
+                repository=task.repository,
+                workflow=task.workflow,
+                branch=task.branch,
+                token=task.token,
+            )
+            print(f"::set-output name=value::{value}")
 
     else:
         raise ValueError('task not supported')

@@ -66,6 +66,12 @@ def is_workflow_success(repository, branch="", workflow="", status='completed'):
         not_branch = branch != run['head_branch']
         not_name = workflow and workflow != run['name']
         not_status = status != run['status']
+
+        # debugging
+        print('branch:', branch, run['head_branch'], not_branch)
+        print('workflow:', workflow, run['name'], not_name)
+        print('status:', status, run['status'], not_status)
+
         if not_branch or not_name or not_status: continue
         return run['conclusion'] == 'success'
 

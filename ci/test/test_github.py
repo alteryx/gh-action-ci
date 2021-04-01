@@ -61,7 +61,7 @@ def test_workflow_fail():
     assert not gh.is_workflow_success(
         repository=REPO,
         branch='test_workflow_fail',
-        workflow='Test Suite',
+        workflow='Test GitHub CI',
     )
 
 

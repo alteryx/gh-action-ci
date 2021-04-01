@@ -51,9 +51,9 @@ def test_default_branch():
 
 def test_workflow_success():
     assert gh.is_workflow_success(
-        workflow='Test Suite',
         repository=REPO,
-        branch='is_workflow_success',
+        workflow='Test GitHub CI',
+        branch='test_workflow_success',
     )
 
 

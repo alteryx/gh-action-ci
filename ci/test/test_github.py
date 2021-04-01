@@ -57,6 +57,14 @@ def test_workflow_success():
     )
 
 
+def test_workflow_fail():
+    assert not gh.is_workflow_success(
+        repository=REPO,
+        branch='test_workflow_fail',
+        workflow='Test Suite',
+    )
+
+
 def test_workflow_not_found():
     match = 'no workflow found for "unknown"'
     with raises(ValueError, match=match):

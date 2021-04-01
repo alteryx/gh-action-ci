@@ -14,17 +14,6 @@ jobs:
         with:
           task: is_workflow_success
           repository: ${{ github.repository }}
-          workflow: Test Suite
+          branch: test_workflow_fail
+          workflow: Not Found
           ci: github
-
-      - name: Print workflow status
-        shell: python
-        run: "print('is_workflow_sucess:', ${{ steps.is_workflow_success.outputs.value }})"
-
-      - name: Check for recent commit to Featuretools.
-        uses: ./
-        id: is_recent_commit
-        with:
-          task: is_recent_commit
-          repository: alteryx/featuretools
-          recent: weeks=1000

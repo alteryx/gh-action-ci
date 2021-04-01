@@ -44,7 +44,7 @@ def test_recent_commit():
 def test_recent():
     actual = gh.api.check_recent("days=1, hours=1, seconds=1")
     expected = timedelta(days=1, hours=1, seconds=1)
-    assert, actual == expected
+    assert actual == expected
 
 
 def test_invalid_recent():

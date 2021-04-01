@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from pytest import fixture, raises
 
 from .. import github as gh
@@ -37,6 +39,12 @@ def test_recent_commit():
     commit = gh.latest_commit("alteryx/featuretools")
     recent = gh.is_recent_commit(commit=commit, recent="weeks=100000000")
     assert recent
+
+
+def test_recent():
+    actual = gh.api.check_recent("days=1, hours=1, seconds=1")
+    expected = timedelta(days=1, hours=1, seconds=1)
+    assert, actual == expected
 
 
 def test_invalid_recent():

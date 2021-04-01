@@ -1,5 +1,4 @@
-from datetime import timedelta  # noqa
-from datetime import datetime
+from datetime import datetime, timedelta
 from json import dumps
 
 from dateutil.parser import parse

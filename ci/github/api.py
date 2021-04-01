@@ -16,8 +16,20 @@ def default_branch(repository):
     return response.json()['default_branch']
 
 
+def check_recent(value):
+    try:
+        params = {}
+        for param in value.split(','):
+            param = param.lstrip().rstrip()
+            key, value = param.split('=')
+            params[key] = int(value)
+        return timedelta(**params)
+    except:
+        raise ValueError('time value must be in a key-value pair format (i.e. weeks=1, days=1, hours=1, minutes=1)')
+
+
 def is_recent_commit(commit, recent):
-    recent = eval('timedelta(%s)' % recent)
+    recent = check_recent(recent)
     date = parse(commit['author']['date'])
     date = date.replace(tzinfo=None)
     elapsed = datetime.utcnow() - date

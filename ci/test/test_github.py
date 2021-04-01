@@ -39,6 +39,12 @@ def test_recent_commit():
     assert recent
 
 
+def test_invalid_recent():
+    match = 'time value must be in a key-value pair format (i.e. weeks=1, days=1, hours=1, minutes=1)'
+    with raises(ValueError, match=match):
+        gh.check_recent("")
+
+
 def test_default_branch():
     assert gh.default_branch(REPO) == 'main'
 

@@ -61,18 +61,17 @@ def is_workflow_success(repository, branch=None, workflow=None, status='complete
     branch = branch or default_branch(repository)
     url = f"{REST_API}/repos/{repository}/actions/runs?per_page=100"
     response = check_status(get(url), code=200).json()
+    named = workflow is not None
 
     for run in response['workflow_runs']:
         not_branch = branch != run['head_branch']
-        not_name = workflow and workflow != run['name']
+        not_name = named and workflow != run['name']
         not_status = status != run['status']
-        print(run['head_branch'], run['name'], run['status'])
-        print(not_branch, not_name, not_status)
         if not_branch or not_name or not_status: continue
         return run['conclusion'] == 'success'
 
     info = 'no workflow found'
-    if workflow: info += f' for "{workflow}"'
+    if named: info += f' for "{workflow}"'
     raise ValueError(info)
 
 

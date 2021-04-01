@@ -27,6 +27,8 @@ runs:
   args:
     - ${{ inputs.task }}
     - ${{ inputs.repository }}
+    - --branch
+    - ${{ inputs.branch }}
     - --workflow
     - ${{ inputs.workflow }}
     - --recent

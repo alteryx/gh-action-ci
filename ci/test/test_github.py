@@ -42,7 +42,7 @@ def test_recent_commit():
 def test_invalid_recent():
     match = 'time value must be in a key-value pair format (i.e. weeks=1, days=1, hours=1, minutes=1)'
     with raises(ValueError, match=match):
-        gh.check_recent("")
+        gh.api.check_recent("")
 
 
 def test_default_branch():

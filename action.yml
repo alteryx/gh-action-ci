@@ -6,6 +6,9 @@ inputs:
     required: true
   repository:
     description: "The GitHub repository to use."
+    required: false
+  repository:
+    description: "The branch of the repository to use."
     required: true
   workflow:
     description: "The name of a workflow."

@@ -2,7 +2,7 @@ from pytest import fixture, mark
 
 from .. import circleci
 
-REPO = 'FeatureLabs/gh-action-circleci'
+REPO = 'alteryx/gh-action-ci'
 
 
 @fixture()

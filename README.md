@@ -83,8 +83,8 @@ This workflow uses the tasks to schedule project builds in CircleCI on recent co
 
 on:
   schedule:
-    # At 12:00 on every day-of-week from Monday through Friday.
-    - cron:  '0 12 * * 1-5'
+    # At 05:00 PM UTC
+    - cron:  '0 17 * * *'
 
 name: CircleCI Scheduler
 jobs:
@@ -100,8 +100,8 @@ jobs:
           token: ${{ secrets.CIRCLE_TOKEN }}
           ci: circleci
 
-      - if: contains(steps.is_workflow_success.outputs.value, 'True')
-        name: Check for recent commit to Featuretools.
+      - name: Check for recent commit to Featuretools.
+        if: ${{ steps.is_workflow_success.outputs.value == 'True' }}
         uses: alteryx/gh-action-ci@v3
         id: is_recent_commit
         with:
@@ -109,8 +109,8 @@ jobs:
           repository: alteryx/featuretools
           recent: days=7
 
-      - if: contains(steps.is_recent_commit.outputs.value, 'True')
-        name: Trigger project build in CircleCI.
+      - name: Trigger project build in CircleCI.
+        if: ${{ steps.is_recent_commit.outputs.value == 'True' }}
         uses: alteryx/gh-action-ci@v3
         with:
           task: run_workflow

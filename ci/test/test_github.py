@@ -4,7 +4,7 @@ from pytest import fixture, raises
 
 from .. import github as gh
 
-REPO = "FeatureLabs/gh-action-circleci"
+REPO = "FeatureLabs/gh-action-ci"
 
 
 @fixture()
